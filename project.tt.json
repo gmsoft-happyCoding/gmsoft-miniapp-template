@@ -1,0 +1,9 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "gmsoft-miniapp-template",
+  "appid": "testAppId",
+  "setting": {
+    "es6": false,
+    "minified": false
+  }
+}
