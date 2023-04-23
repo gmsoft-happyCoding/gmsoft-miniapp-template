@@ -28,7 +28,8 @@
     "dev:rn": "npm run build:rn -- --watch",
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
-    "dev:quickapp": "npm run build:quickapp -- --watch"
+    "dev:quickapp": "npm run build:quickapp -- --watch",
+    "genapi": "easymock init"
   },
   "browserslist": [
     "last 3 versions",
@@ -54,6 +55,7 @@
     "@tarojs/runtime": "3.6.5",
     "@tarojs/shared": "3.6.5",
     "@tarojs/taro": "3.6.5",
+    "lodash": "^4.17.21",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
@@ -62,6 +64,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "@tarojs/cli": "3.6.5",
     "@tarojs/webpack5-runner": "3.6.5",
+    "@types/lodash": "^4.14.194",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.0",
     "@types/webpack-env": "^1.13.6",
