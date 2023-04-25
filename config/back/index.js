@@ -1,4 +1,4 @@
-import CIPluginOpt from "./CIPluginOpt";
+import CIPluginOpt from "../CIPluginOpt";
 
 const config = {
   projectName: "gmsoft-miniapp-template",
@@ -64,7 +64,7 @@ const config = {
 
 export default function (merge) {
   if (process.env.NODE_ENV === "development") {
-    return merge({}, config, require("./dev"));
+    return merge({}, config, require("../dev"));
   }
-  return merge({}, config, require("./prod"));
+  return merge({}, config, require("../prod"));
 }

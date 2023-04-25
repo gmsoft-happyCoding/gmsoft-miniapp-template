@@ -29,7 +29,9 @@
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
     "dev:quickapp": "npm run build:quickapp -- --watch",
-    "genapi": "easymock init"
+    "genapi": "easymock init",
+    "start": "node -r ts-node/register ./config/start.ts",
+    "build:1": "node -r ts-node/register ./config/build.ts"
   },
   "browserslist": [
     "last 3 versions",
@@ -76,7 +78,9 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "inquirer": "^8.2.5",
     "postcss": "^8.4.18",
+    "prettier": "^2.8.8",
     "react-refresh": "^0.11.0",
     "stylelint": "^14.4.0",
     "ts-node": "^10.9.1",
