@@ -12,7 +12,7 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: [['@tarojs/plugin-mini-ci', CIPluginOpt]],
+  plugins: ['@tarojs/plugin-platform-alipay-dd', ['@tarojs/plugin-mini-ci', CIPluginOpt]],
   defineConstants: {},
   copy: {
     patterns: [],
