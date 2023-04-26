@@ -1,15 +1,34 @@
 {
-  "miniprogramRoot": "./dist",
+  "miniprogramRoot": "dist/weapp",
   "projectname": "gmsoft-miniapp-template",
   "description": "",
-  "appid": "touristappid",
+  "appid": "wx52f070a2992e6d98",
   "setting": {
     "urlCheck": true,
     "es6": false,
     "enhance": false,
     "compileHotReLoad": false,
     "postcss": false,
-    "minified": false
+    "minified": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "condition": false,
+    "minifyWXSS": false,
+    "minifyWXML": false
   },
-  "compileType": "miniprogram"
+  "compileType": "miniprogram",
+  "libVersion": "2.31.1",
+  "srcMiniprogramRoot": "dist/weapp",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  }
 }

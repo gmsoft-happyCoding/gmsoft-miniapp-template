@@ -1,4 +1,8 @@
 import { mergeEnv } from './utils';
+import { AppType } from './enums/AppType.enum';
+
+// 设置 小程序环境
+const appType = process.env.REACT_MINI_APP_TYPE;
 
 const config = {
   projectName: 'gmsoft-miniapp-template',
@@ -10,7 +14,7 @@ const config = {
     828: 1.81 / 2,
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  outputRoot: appType === AppType.weapp ? 'dist/weapp' : 'dist/ddapp',
   plugins: ['@tarojs/plugin-platform-alipay-dd'],
   defineConstants: {},
   copy: {
