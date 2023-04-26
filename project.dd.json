@@ -1,5 +1,5 @@
 {
-  "miniprogramRoot": "./",
+  "miniprogramRoot": "dist/ddapp",
   "projectname": "gmsoft-miniapp-template",
   "appid": "testAppId",
   "setting": {

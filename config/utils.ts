@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get, reduce } from 'lodash';
 import { join } from 'path';
 import { spawn } from 'child_process';
 import { prompt } from 'inquirer';
@@ -12,7 +12,11 @@ const envConfigPath = join(process.cwd(), 'project-config', `${envFileName}.ts`)
 const mergeEnv = (config: any) => {
   const envConfig = require(envConfigPath);
 
-  return Object.assign({}, config, { env: get(envConfig, 'evns', {}) });
+  const envs = get(envConfig, 'envs', {});
+
+  return Object.assign({}, config, {
+    env: reduce(envs, (result, value, key) => ({ ...result, [key]: JSON.stringify(value) }), {}),
+  });
 };
 
 const questions = [

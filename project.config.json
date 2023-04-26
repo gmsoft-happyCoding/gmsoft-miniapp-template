@@ -1,5 +1,5 @@
 {
-  "miniprogramRoot": "dist/weapp",
+  "miniprogramRoot": "dist/weapp/",
   "projectname": "gmsoft-miniapp-template",
   "description": "",
   "appid": "wx52f070a2992e6d98",
@@ -21,7 +21,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.31.1",
-  "srcMiniprogramRoot": "dist/weapp",
+  "srcMiniprogramRoot": "dist/weapp/",
   "packOptions": {
     "ignore": [],
     "include": []
