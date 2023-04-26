@@ -1,4 +1,3 @@
-import CIPluginOpt from './CIPluginOpt';
 import { mergeEnv } from './utils';
 
 const config = {
@@ -12,7 +11,7 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: ['@tarojs/plugin-platform-alipay-dd', ['@tarojs/plugin-mini-ci', CIPluginOpt]],
+  plugins: ['@tarojs/plugin-platform-alipay-dd'],
   defineConstants: {},
   copy: {
     patterns: [],
