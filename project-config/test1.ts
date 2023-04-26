@@ -1,7 +1,5 @@
-const config = {
-  envs: {
-    REACT_MINI_APP_PPPPP: '1111',
-  },
+const test1Config = {
+  envs: {},
 };
 
-export default config;
+module.exports = test1Config;

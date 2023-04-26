@@ -1,7 +1,5 @@
-const config = {
-  envs: {
-    MINI_APP_PPPPP: '1111',
-  },
+const devConfig = {
+  envs: {},
 };
 
-module.exports = config;
+module.exports = devConfig;
