@@ -31,7 +31,8 @@
     "dev:quickapp": "npm run build:quickapp -- --watch",
     "genapi": "easymock init",
     "start": "node -r ts-node/register ./config/start.ts",
-    "build:1": "node -r ts-node/register ./config/build.ts"
+    "build:1": "node -r ts-node/register ./config/build.ts",
+    "taro:info": "NODE_OPTIONS=-r ts-node/register taro info"
   },
   "browserslist": [
     "last 3 versions",

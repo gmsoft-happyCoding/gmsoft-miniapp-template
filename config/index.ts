@@ -75,11 +75,11 @@ const config = {
   // },
 };
 
-export default function (merge) {
+module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {
     console.log(mergeEnv(require('./dev')));
 
     return merge({}, config, mergeEnv(require('./dev')));
   }
   return merge({}, config, mergeEnv(require('./prod')));
-}
+};

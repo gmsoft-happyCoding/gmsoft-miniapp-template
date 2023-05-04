@@ -1,5 +1,3 @@
-import CIPluginOpt from "../CIPluginOpt";
-
 const config = {
   projectName: "gmsoft-miniapp-template",
   date: "2023-4-20",
@@ -11,7 +9,7 @@ const config = {
   },
   sourceRoot: "src",
   outputRoot: "dist",
-  plugins: [["@tarojs/plugin-mini-ci", CIPluginOpt]],
+  plugins: [],
   defineConstants: {},
   copy: {
     patterns: [],
