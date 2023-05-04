@@ -22,35 +22,8 @@
       "node_modules/@types"
     ],
     "paths": {
-      "@/components/*": [
-        "./src/components/*"
-      ],
-      "@/styles/*": [
-        "./src/styles/*"
-      ],
-      "@/assets/*": [
-        "./src/assets/*"
-      ],
-      "@/utils/*": [
-        "./src/utils/*"
-      ],
-      "@/config/*": [
-        "./src/config/*"
-      ],
-      "@/models/*": [
-        "./src/models/*"
-      ],
-      "@/api": [
-        "./src/api"
-      ],
-      "@/typings/*": [
-        "./src/typings/*"
-      ],
-      "@/enums/*": [
-        "./src/enums/*"
-      ],
-      "@/constant/*": [
-        "./src/constant/*"
+      "@/*": [
+        "src/*"
       ]
     }
   },
