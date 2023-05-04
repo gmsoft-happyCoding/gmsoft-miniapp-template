@@ -8,7 +8,7 @@ module.exports = {
       {
         framework: 'react',
         ts: true,
-        useBuiltIns: 'entry',
+        useBuiltIns: 'usage',
       },
     ],
   ],

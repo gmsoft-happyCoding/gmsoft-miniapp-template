@@ -3,8 +3,6 @@ import { Provider } from 'react-redux';
 import { useLaunch } from '@tarojs/taro';
 import { dvaContainer } from '@/utils';
 import './app.less';
-// eslint-disable-next-line import/first
-import 'core-js';
 
 function App({ children }: PropsWithChildren) {
   useLaunch(() => {
