@@ -34,6 +34,7 @@ const config = {
     '@/api': resolve(__dirname, '..', 'src/api'),
     '@/enums': resolve(__dirname, '..', 'src/enums'),
     '@/constant': resolve(__dirname, '..', 'src/constant'),
+    '@/hooks': resolve(__dirname, '..', 'src/hooks'),
   },
   mini: {
     postcss: {
@@ -74,6 +75,10 @@ const config = {
   //   },
   // },
 };
+
+console.log(__dirname);
+
+console.log(resolve(__dirname, '..', 'node_modules/gm-react-hanger/index.js'));
 
 module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {

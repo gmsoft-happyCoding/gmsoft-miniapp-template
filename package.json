@@ -40,7 +40,7 @@
   ],
   "author": "",
   "dependencies": {
-    "@babel/runtime": "^7.7.7",
+    "@babel/runtime": "7.18.0",
     "@tarojs/components": "3.6.5",
     "@tarojs/helper": "3.6.5",
     "@tarojs/plugin-framework-react": "3.6.5",
@@ -59,7 +59,6 @@
     "dva-core": "^2.0.4",
     "dva-loading": "^3.0.24",
     "dva-model-creator": "^0.4.3",
-    "gm-react-hanger": "^2.3.3",
     "lodash": "^4.17.21",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -68,7 +67,7 @@
     "redux-saga": "^1.2.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.0",
+    "@babel/core": "^7.21.8",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "@tarojs/cli": "3.6.5",
     "@tarojs/webpack5-runner": "3.6.5",
@@ -94,5 +93,8 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.1.0",
     "webpack": "5.78.0"
+  },
+  "resolutions": {
+    "@babel/runtime": "7.18.0"
   }
 }
