@@ -37,6 +37,7 @@ const config = {
     '@/hooks': resolve(__dirname, '..', 'src/hooks'),
   },
   mini: {
+    hot: true,
     postcss: {
       pxtransform: {
         enable: true,
