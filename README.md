@@ -19,6 +19,7 @@
 
 
 # 目录结构
+```
 gmsoft-miniapp-template
 ├── node_modules
 ├── project-config                        // 环境配置文件
