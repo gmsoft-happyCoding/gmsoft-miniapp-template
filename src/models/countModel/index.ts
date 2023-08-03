@@ -1,8 +1,4 @@
-import { COUNT } from '@/constant/namespace';
-import countActions from './actions';
-import model from './model';
-import type { State } from './type';
-
-export { countActions, model, COUNT };
-
-export type { State };
+export { COUNT } from '@/constant/namespace';
+export { default as countActions } from './actions';
+export { default as model } from './model';
+export type * from './type';
