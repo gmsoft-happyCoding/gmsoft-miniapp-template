@@ -5,6 +5,10 @@ const devConfig = {
   defineConstants: {},
   mini: {},
   h5: {},
+  compiler: {
+    type: 'webpack5',
+    prebundle: { enable: false },
+  },
 };
 
 module.exports = devConfig;

@@ -16,7 +16,11 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: appType === AppType.weapp ? 'dist/weapp' : 'dist/ddapp',
-  plugins: ['@tarojs/plugin-platform-alipay-dd'],
+  ...(appType === AppType.weapp
+    ? {}
+    : {
+        plugins: ['@tarojs/plugin-platform-alipay-dd'],
+      }),
   defineConstants: {},
   copy: {
     patterns: [],
@@ -58,23 +62,6 @@ const config = {
       },
     },
   },
-  // h5: {
-  //   publicPath: '/',
-  //   staticDirectory: 'static',
-  //   postcss: {
-  //     autoprefixer: {
-  //       enable: true,
-  //       config: {},
-  //     },
-  //     cssModules: {
-  //       enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
-  //       config: {
-  //         namingPattern: 'module', // 转换模式，取值为 global/module
-  //         generateScopedName: '[name]__[local]___[hash:base64:5]',
-  //       },
-  //     },
-  //   },
-  // },
 };
 
 console.log(__dirname);
@@ -83,8 +70,6 @@ console.log(resolve(__dirname, '..', 'node_modules/gm-react-hanger/index.js'));
 
 module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {
-    console.log(mergeEnv(require('./dev')));
-
     return merge({}, config, mergeEnv(require('./dev')));
   }
   return merge({}, config, mergeEnv(require('./prod')));
