@@ -32,8 +32,9 @@ const questions = [
     name: 'appType',
     message: '请选择小程序类型?',
     choices: [
-      { name: '微信小程序', value: AppType.weapp },
+      { name: '微信小程序', value: AppType.WEAPP },
       { name: '钉钉', value: AppType.DD },
+      { name: '支付宝', value: AppType.ALIPAY },
     ],
     default: '微信小程序',
   },

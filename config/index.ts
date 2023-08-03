@@ -15,12 +15,15 @@ const config = {
     828: 1.81 / 2,
   },
   sourceRoot: 'src',
-  outputRoot: appType === AppType.weapp ? 'dist/weapp' : 'dist/ddapp',
-  ...(appType === AppType.weapp
-    ? {}
-    : {
+  ...(appType === AppType.WEAPP ? { outputRoot: 'dist/weapp' } : {}),
+  ...(appType === AppType.DD ? { outputRoot: 'dist/ddapp' } : {}),
+  ...(appType === AppType.ALIPAY ? { outputRoot: 'dist/alipayapp' } : {}),
+  //  outputRoot: appType === AppType.weapp ? 'dist/weapp' : 'dist/ddapp',
+  ...(appType === AppType.DD
+    ? {
         plugins: ['@tarojs/plugin-platform-alipay-dd'],
-      }),
+      }
+    : {}),
   defineConstants: {},
   copy: {
     patterns: [],

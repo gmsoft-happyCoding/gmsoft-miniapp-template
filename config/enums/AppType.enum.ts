@@ -1,9 +1,10 @@
 export enum AppType {
   /** 微信小程序 */
-  weapp = 'weapp',
+  WEAPP = 'weapp',
 
   /** 钉钉小程序 */
   DD = 'dd',
-}
 
-export const appTypes = ['微信小程序', '钉钉'];
+  /** 支付宝小程序 */
+  ALIPAY = 'alipay',
+}
