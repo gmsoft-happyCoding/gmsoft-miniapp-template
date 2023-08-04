@@ -22,14 +22,14 @@ export default function Index() {
           disPatch.add();
         }}
       >
-        增加
+        增加+
       </Button>
       <Button
         onClick={() => {
           disPatch.minus();
         }}
       >
-        减少
+        减少-
       </Button>
     </View>
   );

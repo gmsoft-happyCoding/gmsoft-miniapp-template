@@ -18,7 +18,6 @@ const config = {
   ...(appType === AppType.WEAPP ? { outputRoot: 'dist/weapp' } : {}),
   ...(appType === AppType.DD ? { outputRoot: 'dist/ddapp' } : {}),
   ...(appType === AppType.ALIPAY ? { outputRoot: 'dist/alipayapp' } : {}),
-  //  outputRoot: appType === AppType.weapp ? 'dist/weapp' : 'dist/ddapp',
   ...(appType === AppType.DD
     ? {
         plugins: ['@tarojs/plugin-platform-alipay-dd'],
@@ -45,6 +44,7 @@ const config = {
   },
   mini: {
     hot: true,
+    enableSourceMap: false,
     postcss: {
       pxtransform: {
         enable: true,
@@ -63,6 +63,13 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]',
         },
       },
+    },
+    webpackChain(chain) {
+      chain.merge({
+        optimization: {
+          providedExports: true,
+        },
+      });
     },
   },
 };

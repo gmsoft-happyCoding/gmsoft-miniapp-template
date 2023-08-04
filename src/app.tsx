@@ -4,7 +4,7 @@ import { useLaunch } from '@tarojs/taro';
 import { dvaContainer } from '@/utils';
 import './app.less';
 
-function App({ children }: PropsWithChildren) {
+function App({ children }: PropsWithChildren<any>) {
   useLaunch(() => {
     console.log('App launched.');
   });
