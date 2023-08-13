@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+import webpack from 'webpack';
 import { mergeEnv } from './utils';
 import { AppType } from './enums/AppType.enum';
 
@@ -20,16 +21,22 @@ const config = {
   ...(appType === AppType.ALIPAY ? { outputRoot: 'dist/alipayapp' } : {}),
   ...(appType === AppType.DD
     ? {
-        plugins: ['@tarojs/plugin-platform-alipay-dd'],
+        plugins: [resolve(__dirname, './TaroPlugin.ts'), '@tarojs/plugin-platform-alipay-dd'],
       }
-    : {}),
+    : { plugins: [resolve(__dirname, './TaroPlugin.ts')] }),
   defineConstants: {},
   copy: {
-    patterns: [],
+    patterns: [
+      //  { from: 'src/subminiapp/', to: 'dist/weapp/subminiapp/' },
+      //  { from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' },
+    ],
     options: {},
   },
   framework: 'react',
-  compiler: 'webpack5',
+  compiler: {
+    type: 'webpack5',
+    prebundle: { enable: false },
+  },
   cache: {
     enable: false, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
   },
@@ -42,9 +49,11 @@ const config = {
     '@/constant': resolve(__dirname, '..', 'src/constant'),
     '@/hooks': resolve(__dirname, '..', 'src/hooks'),
   },
+  terser: {
+    enable: false, // 压缩
+  },
   mini: {
     hot: true,
-    enableSourceMap: false,
     postcss: {
       pxtransform: {
         enable: true,
@@ -64,19 +73,36 @@ const config = {
         },
       },
     },
+    compile: {
+      exclude: [resolve(__dirname, '..', 'src/subminiapp')],
+    },
     webpackChain(chain) {
       chain.merge({
+        plugin: {
+          BuildDllPlugin: {
+            plugin: require(resolve(__dirname, './BuildDllPlugin.js')),
+            args: [],
+          },
+          DllReferencePlugin: {
+            plugin: webpack.DllReferencePlugin,
+            args: [
+              {
+                context: resolve(__dirname, '../dist'),
+                manifest: require(resolve(__dirname, '../dist', 'remote-manifest.json')),
+                sourceType: 'global',
+              },
+            ],
+          },
+        },
         optimization: {
           providedExports: true,
         },
       });
+
+      //  console.log(chain.toConfig());
     },
   },
 };
-
-console.log(__dirname);
-
-console.log(resolve(__dirname, '..', 'node_modules/gm-react-hanger/index.js'));
 
 module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {

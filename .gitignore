@@ -3,6 +3,7 @@ deploy_versions/
 .temp/
 .rn_temp/
 node_modules/
+subminiapp/
 .DS_Store
 .swc
 yarn-error.log

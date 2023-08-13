@@ -1,6 +1,5 @@
 import { create } from 'dva-core';
 import type { Store, Reducer, Action, AnyAction, ReducersMapObject } from 'redux';
-import type { History } from 'history';
 import createLoading from 'dva-loading';
 
 export interface ReducerEnhancer {
@@ -21,7 +20,6 @@ export interface Dispatch<A extends Action = AnyAction> {
 }
 
 export interface SubscriptionAPI {
-  history: History;
   dispatch: Dispatch<any>;
 }
 

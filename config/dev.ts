@@ -7,7 +7,6 @@ const devConfig = {
   h5: {},
   compiler: {
     type: 'webpack5',
-    prebundle: { enable: false },
   },
 };
 

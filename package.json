@@ -30,7 +30,10 @@
     "dev:quickapp": "npm run build:quickapp -- --watch",
     "genapi": "easymock init",
     "start": "ts-node --esm ./config/start.ts",
-    "build": "ts-node --esm ./config/build.ts"
+    "build": "ts-node --esm ./config/build.ts",
+    "build:dll": "ts-node --esm ./config/build-dll.ts",
+    "test:dll": "ts-node --esm ./config/dll-test.ts",
+    "build-dll-test": "ts-node --esm ./config/build-dll-test.ts"
   },
   "browserslist": [
     "last 3 versions",
@@ -59,11 +62,8 @@
     "dva-loading": "^3.0.24",
     "dva-model-creator": "^0.4.3",
     "lodash": "^4.17.21",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-redux": "^8.0.5",
-    "redux": "^4.2.1",
-    "redux-saga": "^1.2.3"
+    "react-redux": "^8.1.2",
+    "redux": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
@@ -79,14 +79,18 @@
     "@typescript-eslint/parser": "^5.20.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-preset-taro": "3.6.5",
+    "clean-webpack-plugin": "^4.0.0",
     "eslint": "^8.12.0",
     "eslint-config-taro": "3.6.5",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "imports-loader": "^4.0.1",
     "inquirer": "^8.2.5",
     "postcss": "^8.4.18",
     "prettier": "^2.8.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-refresh": "^0.11.0",
     "stylelint": "^14.4.0",
     "ts-node": "^10.9.1",

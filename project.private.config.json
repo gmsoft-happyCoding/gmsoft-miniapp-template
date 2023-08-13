@@ -4,5 +4,24 @@
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "",
+          "pathName": "pages/Index/Index",
+          "query": "",
+          "launchMode": "defaultNativeFunctionalized",
+          "scene": null,
+          "partialCompile": {
+            "enabled": false,
+            "pages": [
+              "pages/Index/Index"
+            ]
+          }
+        }
+      ]
+    }
   }
 }

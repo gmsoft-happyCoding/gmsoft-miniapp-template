@@ -6,10 +6,14 @@ export default defineAppConfig({
     navigationBarTextStyle: 'black',
   },
   pages: ['pages/Index/Index'],
-  // subPackages: [
-  //   {
-  //     root: 'taro/pages',
-  //     pages: ['index/index'],
-  //   },
-  // ],
+  subPackages: [
+    {
+      root: 'sub/pages',
+      pages: ['Index/Index'],
+    },
+    // {
+    //   root: 'subminiapp/sub-one/pages',
+    //   pages: ['sub/index'],
+    // },
+  ],
 });
