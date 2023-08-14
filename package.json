@@ -56,14 +56,17 @@
     "@tarojs/plugin-platform-weapp": "3.6.5",
     "@tarojs/react": "3.6.5",
     "@tarojs/runtime": "3.6.5",
+    "@tarojs/service": "3.6.5",
     "@tarojs/shared": "3.6.5",
     "@tarojs/taro": "3.6.5",
     "dva-core": "^2.0.4",
     "dva-loading": "^3.0.24",
     "dva-model-creator": "^0.4.3",
     "lodash": "^4.17.21",
+    "react-reconciler": "0.27.0",
     "react-redux": "^8.1.2",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "regenerator-runtime": "0.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",

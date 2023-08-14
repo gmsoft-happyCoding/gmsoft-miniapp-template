@@ -2,11 +2,23 @@ import { resolve } from 'path';
 import { webpack, DllPlugin } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
+const PRO_DLL_LIBRARY = [
+  'react',
+  'react-dom',
+  'redux',
+  'react-redux',
+  'dva-core',
+  'dva-loading',
+  'dva-model-creator',
+];
+
+const DEV_DLL_LIBRARY = PRO_DLL_LIBRARY.concat('react-reconciler');
+
 const webpackConfig = {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   devtool: false,
   entry: {
-    remote: ['redux', 'react-redux', 'dva-core', 'dva-loading', 'dva-model-creator'],
+    remote: process.env.NODE_ENV === 'development' ? DEV_DLL_LIBRARY : PRO_DLL_LIBRARY,
   },
   resolve: {
     extensions: ['.js', '.jsx'],

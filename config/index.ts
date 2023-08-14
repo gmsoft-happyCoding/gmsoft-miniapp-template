@@ -28,7 +28,7 @@ const config = {
   copy: {
     patterns: [
       //  { from: 'src/subminiapp/', to: 'dist/weapp/subminiapp/' },
-      //  { from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' },
+      { from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' },
     ],
     options: {},
   },
@@ -79,10 +79,6 @@ const config = {
     webpackChain(chain) {
       chain.merge({
         plugin: {
-          BuildDllPlugin: {
-            plugin: require(resolve(__dirname, './BuildDllPlugin.js')),
-            args: [],
-          },
           DllReferencePlugin: {
             plugin: webpack.DllReferencePlugin,
             args: [
@@ -99,7 +95,15 @@ const config = {
         },
       });
 
-      //  console.log(chain.toConfig());
+      // 删除 react 解析问题
+      chain.resolve.alias.delete('react$');
+      chain.resolve.alias.delete('react-reconciler$');
+      chain.resolve.alias.set(
+        'react-reconciler/constants',
+        'react-reconciler/cjs/react-reconciler-constants.production.min.js'
+      );
+
+      console.log(chain.toConfig());
     },
   },
 };
