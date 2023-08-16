@@ -1,5 +1,4 @@
 import { resolve } from 'path';
-import webpack from 'webpack';
 import { mergeEnv } from './utils';
 import { AppType } from './enums/AppType.enum';
 
@@ -27,7 +26,7 @@ const config = {
   defineConstants: {},
   copy: {
     patterns: [
-      //  { from: 'src/subminiapp/', to: 'dist/weapp/subminiapp/' },
+      { from: 'src/subminiapp/', to: 'dist/weapp/subminiapp/' },
       { from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' },
     ],
     options: {},
@@ -54,6 +53,7 @@ const config = {
   },
   mini: {
     hot: true,
+    enableSourceMap: false,
     postcss: {
       pxtransform: {
         enable: true,
@@ -75,35 +75,6 @@ const config = {
     },
     compile: {
       exclude: [resolve(__dirname, '..', 'src/subminiapp')],
-    },
-    webpackChain(chain) {
-      chain.merge({
-        plugin: {
-          DllReferencePlugin: {
-            plugin: webpack.DllReferencePlugin,
-            args: [
-              {
-                context: resolve(__dirname, '../dist'),
-                manifest: require(resolve(__dirname, '../dist', 'remote-manifest.json')),
-                sourceType: 'global',
-              },
-            ],
-          },
-        },
-        optimization: {
-          providedExports: true,
-        },
-      });
-
-      // 删除 react 解析问题
-      chain.resolve.alias.delete('react$');
-      chain.resolve.alias.delete('react-reconciler$');
-      chain.resolve.alias.set(
-        'react-reconciler/constants',
-        'react-reconciler/cjs/react-reconciler-constants.production.min.js'
-      );
-
-      console.log(chain.toConfig());
     },
   },
 };

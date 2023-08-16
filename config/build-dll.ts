@@ -35,9 +35,10 @@ const webpackConfig = {
   plugins: [
     new CleanWebpackPlugin(),
     new DllPlugin({
-      context: resolve(__dirname, '../dist'),
+      context: process.cwd(),
       path: resolve(__dirname, '../dist', '[name]-manifest.json'),
       name: '[name]',
+      format: true,
     }),
   ],
   optimization: {

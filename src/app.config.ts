@@ -11,9 +11,9 @@ export default defineAppConfig({
       root: 'sub/pages',
       pages: ['Index/Index'],
     },
-    // {
-    //   root: 'subminiapp/sub-one/pages',
-    //   pages: ['sub/index'],
-    // },
+    {
+      root: 'subminiapp/sub-one/pages',
+      pages: ['sub/index'],
+    },
   ],
 });

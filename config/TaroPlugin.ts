@@ -1,6 +1,8 @@
 import child_process from 'child_process';
+import { resolve } from 'path';
 import { get } from 'lodash';
 import { IPluginContext } from '@tarojs/service';
+import webpack from 'webpack';
 
 export default (ctx: IPluginContext, pluginOpts) => {
   let entryName: string = '';
@@ -18,6 +20,33 @@ export default (ctx: IPluginContext, pluginOpts) => {
   // 编译中 对webpack进行操作钩子
   ctx.modifyWebpackChain((args: { chain: any }) => {
     const { chain: webpackChain } = args;
+
+    webpackChain.merge({
+      plugin: {
+        DllReferencePlugin: {
+          plugin: webpack.DllReferencePlugin,
+          args: [
+            {
+              context: process.cwd(),
+              manifest: require(resolve(__dirname, '../dist', './remote-manifest.json')),
+              sourceType: 'global',
+            },
+          ],
+        },
+      },
+      optimization: {
+        providedExports: true,
+        moduleIds: 'natural',
+      },
+    });
+
+    // 删除 react 解析问题
+    webpackChain.resolve.alias.delete('react$');
+    webpackChain.resolve.alias.delete('react-reconciler$');
+    webpackChain.resolve.alias.set(
+      'react-reconciler/constants',
+      'react-reconciler/cjs/react-reconciler-constants.production.min.js'
+    );
 
     entryName = get(Object.keys(get(webpackChain.toConfig(), 'entry', {})), '0');
   });
