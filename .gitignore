@@ -7,3 +7,4 @@ subminiapp/
 .DS_Store
 .swc
 yarn-error.log
+.cloudbase

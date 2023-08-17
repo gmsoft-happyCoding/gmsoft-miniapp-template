@@ -21,6 +21,7 @@ const webpackConfig = {
     remote: process.env.NODE_ENV === 'development' ? DEV_DLL_LIBRARY : PRO_DLL_LIBRARY,
   },
   resolve: {
+    symlinks: true,
     extensions: ['.js', '.jsx'],
   },
   output: {
@@ -32,6 +33,20 @@ const webpackConfig = {
     },
     globalObject: 'wx',
   },
+  module: {
+    rules: [
+      {
+        test: /\.(?:js|mjs|cjs)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [['@babel/preset-env', { useBuiltIns: 'usage' }]],
+          },
+        },
+      },
+    ],
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new DllPlugin({
@@ -41,9 +56,6 @@ const webpackConfig = {
       format: true,
     }),
   ],
-  optimization: {
-    minimize: false,
-  },
 };
 
 const compiler = webpack(webpackConfig as any);

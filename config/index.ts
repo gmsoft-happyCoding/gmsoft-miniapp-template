@@ -25,10 +25,7 @@ const config = {
     : { plugins: [resolve(__dirname, './TaroPlugin.ts')] }),
   defineConstants: {},
   copy: {
-    patterns: [
-      { from: 'src/subminiapp/', to: 'dist/weapp/subminiapp/' },
-      { from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' },
-    ],
+    patterns: [{ from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' }],
     options: {},
   },
   framework: 'react',
@@ -47,9 +44,6 @@ const config = {
     '@/enums': resolve(__dirname, '..', 'src/enums'),
     '@/constant': resolve(__dirname, '..', 'src/constant'),
     '@/hooks': resolve(__dirname, '..', 'src/hooks'),
-  },
-  terser: {
-    enable: false, // 压缩
   },
   mini: {
     hot: true,
@@ -72,9 +66,6 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]',
         },
       },
-    },
-    compile: {
-      exclude: [resolve(__dirname, '..', 'src/subminiapp')],
     },
   },
 };

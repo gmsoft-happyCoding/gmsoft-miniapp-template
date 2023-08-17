@@ -1,6 +1,7 @@
 import child_process from 'child_process';
 import { resolve } from 'path';
 import { get } from 'lodash';
+import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
 import webpack from 'webpack';
 
@@ -36,13 +37,11 @@ export default (ctx: IPluginContext, pluginOpts) => {
       },
       optimization: {
         providedExports: true,
-        moduleIds: 'natural',
       },
     });
 
     // 删除 react 解析问题
     webpackChain.resolve.alias.delete('react$');
-    webpackChain.resolve.alias.delete('react-reconciler$');
     webpackChain.resolve.alias.set(
       'react-reconciler/constants',
       'react-reconciler/cjs/react-reconciler-constants.production.min.js'
@@ -69,7 +68,25 @@ export default (ctx: IPluginContext, pluginOpts) => {
   });
 
   // 编译完成钩子
-  ctx.onBuildFinish(async () => {});
+  ctx.onBuildFinish(() => {
+    // Taro v3.1.4
+    const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
+
+    if (!blended) return;
+
+    console.log('编译结束！');
+
+    const rootPath = resolve(__dirname, '../../../src');
+    const miniappPath = resolve(rootPath, './subminiapp/sub-one');
+    const outputPath = resolve(__dirname, '../dist/weapp');
+
+    if (existsSync(miniappPath)) {
+      removeSync(miniappPath);
+    }
+    copySync(outputPath, miniappPath);
+
+    console.log('拷贝结束！');
+  });
 
   // 构建完成钩子
   ctx.onBuildComplete(() => {});

@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useContext } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import Taro, { useLaunch } from '@tarojs/taro';
 import { dvaContainer } from '@/utils';
