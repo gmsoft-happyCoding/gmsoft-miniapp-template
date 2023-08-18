@@ -3,7 +3,7 @@ module.exports = {
   name: 'miniapp-name',
 
   /* 分包项目存放目录名称 */
-  subpackageDir: 'subminiapp',
+  subpackageDir: './subminiapp', // path.resolve(process.cwd(),[subpackageDir])
 
   subpackage: [
     {

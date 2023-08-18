@@ -1,8 +1,6 @@
 {
   "miniprogramRoot": "dist/weapp/",
-  "projectname": "gmsoft-miniapp-template",
   "description": "",
-  "appid": "wx52f070a2992e6d98",
   "setting": {
     "urlCheck": true,
     "es6": true,
@@ -17,19 +15,24 @@
     },
     "condition": false,
     "minifyWXSS": false,
-    "minifyWXML": false
+    "minifyWXML": false,
+    "coverView": false,
+    "showShadowRootInWxmlPanel": false,
+    "packNpmRelationList": [],
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.31.1",
   "srcMiniprogramRoot": "dist/weapp/",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "simulatorPluginLibVersion": {}
+  "simulatorPluginLibVersion": {},
+  "libVersion": "2.31.1",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "appid": "wx52f070a2992e6d98"
 }

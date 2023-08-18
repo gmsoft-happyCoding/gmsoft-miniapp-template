@@ -1,61 +1,116 @@
-import { useEffect } from 'react';
-import { View, Text, Button, Navigator } from '@tarojs/components';
+import { useCallback } from 'react';
+import { styled } from '@linaria/react';
+import { View, Navigator } from '@tarojs/components';
+import { AtButton, AtInput, AtAvatar } from 'taro-ui';
 import { get } from 'lodash';
 import Taro, { useLoad } from '@tarojs/taro';
-import { dvaContainer } from '@/utils';
-import { model } from '@/models/countModel';
 import { useGetUserInfo } from '@/hooks';
-import useHandleIndex from './useHandleIndex';
-import './index.less';
 
-dvaContainer.injectModel(model);
+const Container = styled(View)`
+  padding: 20px;
+`;
+
+const LayoutBtn = styled(AtButton)`
+  margin-bottom: 20px;
+`;
+
+const NikeName = styled(AtInput)`
+  margin-bottom: 20px;
+`;
+
+const AvatarContainer = styled(AtButton)`
+  margin-bottom: 20px;
+  border: none;
+  width: auto;
+`;
 
 export default function Index() {
   useLoad(() => {
     console.log('Page loaded.');
   });
-
-  const { count, disPatch } = useHandleIndex();
-
   const userInfo = useGetUserInfo();
 
-  useEffect(() => {
-    const taroGlobalData = Taro.getApp();
+  const onLogin = () => {
+    Taro.login({
+      success(res) {
+        console.log('获取登录code回调：');
+        console.log(res);
+      },
+    });
+  };
 
-    setTimeout(() => {
-      taroGlobalData.a = 100;
-    }, 5000);
+  const askAuthUserInfo = useCallback(async () => {
+    const scope = await Taro.getSetting();
+
+    console.log(scope);
+
+    const data = await Taro.authorize({ scope: 'scope.userInfo' });
+
+    console.log(data);
+  }, []);
+
+  const bindgetuserinfo = () => {
+    console.log('获取微信用户信息：');
+
+    Taro.getUserProfile({ desc: '暂时昵称' }).then(res => {
+      console.log(res);
+    });
+  };
+
+  const bindgetrealtimephonenumber = event => {
+    console.log('获取手机号回调：');
+    console.log(event);
+  };
+
+  const bindchooseavatar = useCallback(event => {
+    console.log(event);
+  }, []);
+
+  const nikeNameChange = useCallback(name => {
+    console.log(name);
   }, []);
 
   return (
-    <View className="index">
-      <Text>{count}</Text>
-
-      <Button
-        onClick={() => {
-          disPatch.add();
-        }}
-      >
-        增加+
-      </Button>
-      <Button
-        onClick={() => {
-          disPatch.minus();
-        }}
-      >
-        减少-
-      </Button>
+    <Container>
+      {/* @ts-ignore */}
+      <NikeName
+        title="昵称"
+        type="text"
+        placeholder="请输入昵称"
+        value={get(userInfo, 'userName')}
+        onChange={nikeNameChange}
+      />
+      {/* @ts-ignore */}
+      <AvatarContainer openType="chooseAvatar" onChooseavatar={bindchooseavatar}>
+        <AtAvatar image={get(userInfo, 'avatar')} />
+      </AvatarContainer>
 
       <View>
-        <Text>{get(userInfo, 'userName')}</Text>
-      </View>
-      <Navigator url="/sub/pages/Index/Index">
-        <Button>跳转本地子页面</Button>
-      </Navigator>
+        <LayoutBtn type="primary" onClick={onLogin}>
+          获取登录code
+        </LayoutBtn>
 
-      <Navigator url="/subminiapp/sub-one/pages/sub/index">
-        <Button>跳转子页面</Button>
-      </Navigator>
-    </View>
+        <LayoutBtn type="primary" onClick={askAuthUserInfo}>
+          用户信息获取授权
+        </LayoutBtn>
+
+        <LayoutBtn type="secondary" onClick={bindgetuserinfo}>
+          获取微信用户信息
+        </LayoutBtn>
+
+        {/* @ts-ignore */}
+        <LayoutBtn openType="getPhoneNumber" onGetrealtimephonenumber={bindgetrealtimephonenumber}>
+          获取手机号码
+        </LayoutBtn>
+
+        <Navigator url="/sub/pages/Index/Index">
+          <LayoutBtn>跳转本地子页面</LayoutBtn>
+        </Navigator>
+
+        <Navigator url="/subminiapp/sub-one/pages/sub/index">
+          <LayoutBtn>跳转子页面</LayoutBtn>
+        </Navigator>
+      </View>
+    </Container>
   );
 }

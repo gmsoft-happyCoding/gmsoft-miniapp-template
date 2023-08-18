@@ -46,14 +46,13 @@ export interface Model {
 
 export interface StateContainer {
   _store: Store<any>;
-  _history: History;
   injectModel: (model: Model, replace?: boolean) => Model;
 }
 
 // model namespace cache
 const cached = {};
 
-let stateContainer: any = (wx as any)['_stateContainer_'];
+let stateContainer: any = wx['_stateContainer_'];
 
 // eslint-disable-next-line no-console
 const defaultOnError = (err: any) => console.error(err);

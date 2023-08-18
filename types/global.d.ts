@@ -16,3 +16,11 @@ declare namespace NodeJS {
     TARO_ENV: 'weapp' | 'swan' | 'alipay' | 'h5' | 'rn' | 'tt' | 'quickapp' | 'qq' | 'jd';
   }
 }
+
+declare var wx: {
+  _stateContainer_: any;
+};
+
+declare var dd: {
+  _stateContainer_: any;
+};
