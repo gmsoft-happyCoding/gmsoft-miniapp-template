@@ -32,8 +32,7 @@
     "start": "ts-node --esm ./config/start.ts",
     "build": "ts-node --esm ./config/build.ts",
     "build:dll": "ts-node --esm ./config/build-dll.ts",
-    "test:dll": "ts-node --esm ./config/dll-test.ts",
-    "build-dll-test": "ts-node --esm ./config/build-dll-test.ts"
+    "pull": "ts-node --esm ./config/pullSubminiapp.ts"
   },
   "browserslist": [
     "last 3 versions",
