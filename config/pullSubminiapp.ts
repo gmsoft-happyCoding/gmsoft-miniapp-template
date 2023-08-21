@@ -1,24 +1,46 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { resolve } from 'path';
+import { get } from 'lodash';
 import { execSync } from 'child_process';
 
 // 项目配置目录
-// const DIR_NAME = 'project-config';
+const DIR_NAME = 'project-config';
 
 // 获取配置文件
-// const config = require(resolve(process.cwd(), `./${DIR_NAME}/config.js`));
+const config = require(resolve(process.cwd(), `./${DIR_NAME}/config.js`));
 
-// console.log(config);
+// 分包项目 存放目录 名称
+const subpackageDir = get(config, 'subpackageDir');
 
-const svnPath =
-  'https://192.168.2.10:8080/svn/GovProEleTrade/P80综合与解决方案/P8090综合/C3前端应用/小程序/trunk/sub-miniapp';
+// 分包项目配置
+const subpackage = get(config, 'subpackage');
 
-const subMiniappDir = resolve(process.cwd(), `./subminiapp/sub-miniapp`);
+// 任务执行 svn 拉取操作
+const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string) => {
+  // 分包项目存放目录
+  execSync(`svn --force export ${svnPath} ${subMiniappDir}/${subpackageName}`, {
+    stdio: 'inherit',
+    cwd: process.cwd(),
+  });
+};
 
-console.log(subMiniappDir);
+if (subpackage && Array.isArray(subpackage)) {
+  subpackage.reduce(async (pre, cur) => {
+    try {
+      await pre;
+      return new Promise<void>((promistResolve, reject) => {
+        const svbPath = get(cur, 'repositories');
 
-// 分包项目存放目录
-execSync(`svn --force export ${svnPath} ${subMiniappDir}`, {
-  stdio: 'inherit',
-  cwd: process.cwd(),
-});
+        const subpackageName = get(cur, 'name');
+
+        if (svbPath && subpackageName) {
+          pullSvn(svbPath, subpackageDir, subpackageName);
+          promistResolve();
+        } else {
+          reject();
+        }
+      });
+    } catch (error) {
+      return Promise.reject();
+    }
+  }, Promise.resolve());
+}
