@@ -1,6 +1,6 @@
 const PROTOCOL = 'https';
 
-const DOMIAN = 'www.xcjtest1.gm';
+const DOMIAN = 'www.xcjdev1.gm';
 
 const devConfig = {
   envs: {},

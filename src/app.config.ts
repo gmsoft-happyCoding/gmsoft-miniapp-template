@@ -5,15 +5,5 @@ export default defineAppConfig({
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black',
   },
-  pages: ['pages/Index/Index'],
-  subPackages: [
-    {
-      root: 'sub/pages',
-      pages: ['Index/Index'],
-    },
-    // {
-    //   root: 'subminiapp/sub-one/pages',
-    //   pages: ['sub/index'],
-    // },
-  ],
+  ...require('../project-config/app.config.js'),
 });

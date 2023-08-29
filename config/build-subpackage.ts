@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { resolve } from 'path';
 import { get } from 'lodash';
-import { execSync } from 'child_process';
+import { spawnSync } from 'child_process';
 
 // 项目配置目录
 const DIR_NAME = 'project-config';
@@ -14,12 +15,13 @@ const subpackageDir = get(config, 'subpackageDir');
 // 分包项目配置
 const subpackage = get(config, 'remoteSubpackage');
 
-// 任务执行 svn 拉取操作
-const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string) => {
+// 执行打包操作
+const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
   // 分包项目存放目录
-  execSync(`svn --force export ${svnPath} ${subMiniappDir}/${subpackageName}`, {
+  spawnSync('pnpm', ['build', '--env dev1', '--type dd', ' --blended'], {
+    cwd: resolve(`${subMiniappDir}/${subpackageName}`),
     stdio: 'inherit',
-    cwd: process.cwd(),
+    shell: true,
   });
 };
 
@@ -28,12 +30,10 @@ if (subpackage && Array.isArray(subpackage)) {
     try {
       await pre;
       return new Promise<void>((promistResolve, reject) => {
-        const svbPath = get(cur, 'repositories');
-
         const subpackageName = get(cur, 'name');
 
-        if (svbPath && subpackageName) {
-          pullSvn(svbPath, subpackageDir, subpackageName);
+        if (subpackageName) {
+          buildSubpackage(subpackageDir, subpackageName);
           promistResolve();
         } else {
           reject();

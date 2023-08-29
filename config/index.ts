@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { mergeEnv } from './utils';
+import { mergeEnv, buildPlugin, outputRoot } from './utils';
 import { AppType } from './enums/AppType.enum';
 
 // 设置 小程序环境
@@ -15,17 +15,12 @@ const config = {
     828: 1.81 / 2,
   },
   sourceRoot: 'src',
-  ...(appType === AppType.WEAPP ? { outputRoot: 'dist/weapp' } : {}),
-  ...(appType === AppType.DD ? { outputRoot: 'dist/ddapp' } : {}),
-  ...(appType === AppType.ALIPAY ? { outputRoot: 'dist/alipayapp' } : {}),
-  ...(appType === AppType.DD
-    ? {
-        plugins: [resolve(__dirname, './TaroPlugin.ts'), '@tarojs/plugin-platform-alipay-dd'],
-      }
-    : { plugins: [resolve(__dirname, './TaroPlugin.ts')] }),
+  outputRoot: outputRoot(appType as AppType),
+  plugins: buildPlugin(appType as AppType),
   defineConstants: {},
   copy: {
-    patterns: [{ from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' }],
+    patterns: [],
+    //  patterns: [{ from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' }],
     options: {},
   },
   framework: 'react',
@@ -70,7 +65,7 @@ const config = {
         },
       },
     },
-    webpackChain(chain, webpack) {
+    webpackChain(chain) {
       // linaria/loader 选项详见 https://github.com/callstack/linaria/blob/master/docs/BUNDLERS_INTEGRATION.md#webpack
       chain.module
         .rule('script')
@@ -87,5 +82,6 @@ module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, mergeEnv(require('./dev')));
   }
+
   return merge({}, config, mergeEnv(require('./prod')));
 };

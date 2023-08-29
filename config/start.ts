@@ -1,3 +1,3 @@
 import { inquirer } from './utils';
 
-inquirer();
+inquirer(false);

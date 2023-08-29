@@ -1,21 +1,26 @@
-import child_process from 'child_process';
+import { DllReferencePlugin } from 'webpack';
+import { execSync } from 'child_process';
 import { resolve } from 'path';
 import { get } from 'lodash';
 import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
-import webpack from 'webpack';
+import { outputRoot } from './utils';
 
 export default (ctx: IPluginContext, pluginOpts) => {
+  const { appType } = pluginOpts;
+
   let entryName: string = '';
 
   // 开始编译前 钩子
   ctx.onBuildStart(() => {
-    // if (process.env.NODE_ENV !== 'development') {
-    child_process.execSync('ts-node --esm ./config/build-dll.ts', {
-      stdio: 'inherit',
-      cwd: process.cwd(),
-    });
-    // }
+    const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
+
+    if (!blended) {
+      execSync('ts-node --esm ./config/build-dll.ts', {
+        stdio: 'inherit',
+        cwd: process.cwd(),
+      });
+    }
   });
 
   // 编译中 对webpack进行操作钩子
@@ -25,7 +30,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
     webpackChain.merge({
       plugin: {
         DllReferencePlugin: {
-          plugin: webpack.DllReferencePlugin,
+          plugin: DllReferencePlugin,
           args: [
             {
               context: process.cwd(),
@@ -46,8 +51,6 @@ export default (ctx: IPluginContext, pluginOpts) => {
       'react-reconciler/constants',
       'react-reconciler/cjs/react-reconciler-constants.production.min.js'
     );
-
-    //  console.log(webpackChain.toConfig());
 
     entryName = get(Object.keys(get(webpackChain.toConfig(), 'entry', {})), '0');
   });
@@ -80,7 +83,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
     const rootPath = resolve(__dirname, '../../../src');
     const miniappPath = resolve(rootPath, './subminiapp/sub-one');
-    const outputPath = resolve(__dirname, '../dist/weapp');
+    const outputPath = resolve(__dirname, '../', `${outputRoot(appType)}`);
 
     if (existsSync(miniappPath)) {
       removeSync(miniappPath);
@@ -91,5 +94,19 @@ export default (ctx: IPluginContext, pluginOpts) => {
   });
 
   // 构建完成钩子
-  ctx.onBuildComplete(() => {});
+  ctx.onBuildComplete(() => {
+    const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
+
+    // 只有不是 分包项目 都要复制
+    if (blended) return;
+
+    // 复制 dll文件到对应的小程序目录中
+    const dllFilePath = resolve(process.cwd(), './dist/remote_dll.js');
+
+    const outputPath = resolve(process.cwd(), './dist/weapp/remote_dll.js');
+
+    if (existsSync(dllFilePath)) {
+      copySync(dllFilePath, outputPath, { overwrite: true });
+    }
+  });
 };

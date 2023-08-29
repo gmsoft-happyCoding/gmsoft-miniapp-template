@@ -9,7 +9,7 @@
     "css": "less"
   },
   "scripts": {
-    "build:weapp": "taro build --type weapp",
+    "build:weapp": "set NODE_OPTIONS=-r ts-node/register --no-warnings && taro build --type weapp --blended",
     "build:swan": "taro build --type swan",
     "build:alipay": "taro build --type alipay",
     "build:tt": "taro build --type tt",
@@ -32,7 +32,8 @@
     "start": "ts-node --esm ./config/start.ts",
     "build": "ts-node --esm ./config/build.ts",
     "build:dll": "ts-node --esm ./config/build-dll.ts",
-    "pull": "ts-node --esm ./config/pullSubminiapp.ts"
+    "pull": "ts-node --esm ./config/pullSubminiapp.ts",
+    "build:sub": "ts-node --esm ./config/build-subpackage.ts"
   },
   "browserslist": [
     "last 3 versions",
@@ -80,6 +81,7 @@
     "@babel/types": "^7.22.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "@tarojs/cli": "3.6.5",
+    "@tarojs/plugin-indie": "^0.0.8",
     "@tarojs/webpack5-runner": "3.6.5",
     "@types/core-js": "^2.5.5",
     "@types/fs-extra": "^11.0.1",
@@ -103,6 +105,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "fs-extra": "^11.1.1",
     "inquirer": "^8.2.5",
+    "minimist": "^1.2.8",
     "postcss": "^8.4.18",
     "prettier": "^2.8.8",
     "react-refresh": "^0.11.0",
