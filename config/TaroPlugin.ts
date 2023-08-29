@@ -36,7 +36,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
               context: process.cwd(),
               manifest: require(resolve(
                 process.cwd(),
-                blended ? '../../' : './dist',
+                blended ? '../../dist' : './dist',
                 './remote-manifest.json'
               )),
               sourceType: 'global',

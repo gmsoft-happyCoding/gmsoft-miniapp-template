@@ -23,27 +23,3 @@ const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string)
     cwd: process.cwd(),
   });
 };
-
-if (subpackage && Array.isArray(subpackage)) {
-  // 清空目录
-  emptyDirSync(resolve(process.cwd(), subpackageDir));
-  subpackage.reduce(async (pre, cur) => {
-    try {
-      await pre;
-      return new Promise<void>((promistResolve, reject) => {
-        const svbPath = get(cur, 'repositories');
-
-        const subpackageName = get(cur, 'name');
-
-        if (svbPath && subpackageName) {
-          pullSvn(svbPath, subpackageDir, subpackageName);
-          promistResolve();
-        } else {
-          reject();
-        }
-      });
-    } catch (error) {
-      return Promise.reject();
-    }
-  }, Promise.resolve());
-}

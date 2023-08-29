@@ -32,7 +32,6 @@
     "start": "ts-node --esm ./config/start.ts",
     "build": "ts-node --esm ./config/build.ts",
     "build:dll": "ts-node --esm ./config/build-dll.ts",
-    "pull": "ts-node --esm ./config/pullSubminiapp.ts",
     "build:sub": "ts-node --esm ./config/build-subpackage.ts"
   },
   "browserslist": [
