@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import { get } from 'lodash';
+import { emptyDirSync } from 'fs-extra';
 import { execSync } from 'child_process';
 
 // 项目配置目录
@@ -24,6 +25,8 @@ const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string)
 };
 
 if (subpackage && Array.isArray(subpackage)) {
+  // 清空目录
+  emptyDirSync(resolve(process.cwd(), subpackageDir));
   subpackage.reduce(async (pre, cur) => {
     try {
       await pre;

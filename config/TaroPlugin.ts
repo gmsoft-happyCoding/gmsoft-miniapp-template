@@ -7,14 +7,14 @@ import { IPluginContext } from '@tarojs/service';
 import { outputRoot } from './utils';
 
 export default (ctx: IPluginContext, pluginOpts) => {
+  const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
+
   const { appType } = pluginOpts;
 
   let entryName: string = '';
 
   // 开始编译前 钩子
   ctx.onBuildStart(() => {
-    const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
-
     if (!blended) {
       execSync('ts-node --esm ./config/build-dll.ts', {
         stdio: 'inherit',
@@ -34,7 +34,11 @@ export default (ctx: IPluginContext, pluginOpts) => {
           args: [
             {
               context: process.cwd(),
-              manifest: require(resolve(__dirname, '../dist', './remote-manifest.json')),
+              manifest: require(resolve(
+                process.cwd(),
+                blended ? '../../' : './dist',
+                './remote-manifest.json'
+              )),
               sourceType: 'global',
             },
           ],
@@ -74,9 +78,6 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
   // 编译完成钩子
   ctx.onBuildFinish(() => {
-    // Taro v3.1.4
-    const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
-
     if (!blended) return;
 
     console.log('编译结束！');
@@ -95,8 +96,6 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
   // 构建完成钩子
   ctx.onBuildComplete(() => {
-    const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
-
     // 只有不是 分包项目 都要复制
     if (blended) return;
 

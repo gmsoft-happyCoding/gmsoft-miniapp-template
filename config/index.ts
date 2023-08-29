@@ -20,7 +20,6 @@ const config = {
   defineConstants: {},
   copy: {
     patterns: [],
-    //  patterns: [{ from: 'dist/remote_dll.js', to: 'dist/weapp/remote_dll.js' }],
     options: {},
   },
   framework: 'react',

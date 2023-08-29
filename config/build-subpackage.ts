@@ -18,7 +18,7 @@ const subpackage = get(config, 'remoteSubpackage');
 // 执行打包操作
 const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
   // 分包项目存放目录
-  spawnSync('pnpm', ['build', '--env dev1', '--type dd', ' --blended'], {
+  spawnSync('pnpm', ['build --env dev1 --type weapp --blended'], {
     cwd: resolve(`${subMiniappDir}/${subpackageName}`),
     stdio: 'inherit',
     shell: true,
