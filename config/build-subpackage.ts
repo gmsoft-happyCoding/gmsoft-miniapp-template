@@ -39,7 +39,7 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
   spawnSync(
     'pnpm',
     [
-      `build --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --blended`,
+      `build --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --blended --moveDir ${nodeCwd}`,
     ],
     {
       cwd: nodeCwd,
