@@ -1,13 +1,18 @@
 import { resolve } from 'path';
 import { get } from 'lodash';
-import { emptyDirSync } from 'fs-extra';
+import { emptyDirSync, existsSync } from 'fs-extra';
 import { execSync, spawnSync } from 'child_process';
+
+interface SubpageConfig {
+  pages: string[];
+  subPackages: Array<{ root: string; pages: string[] }>;
+}
 
 // 项目配置目录
 const DIR_NAME = 'project-config';
 
 // 获取配置文件
-const config = require(resolve(process.cwd(), `./${DIR_NAME}/config.js`));
+const config = require(resolve(process.cwd(), `./${DIR_NAME}/config.ts`));
 
 // 分包项目 存放目录 名称
 const subpackageDir = get(config, 'subpackageDir');
@@ -26,18 +31,57 @@ const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string)
 
 // 执行打包操作
 const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
+  const nodeCwd = resolve(process.cwd(), `${subMiniappDir}/${subpackageName}`);
+
+  console.log(nodeCwd);
+
   // 分包项目存放目录
-  spawnSync('pnpm', ['build --env dev1 --type weapp --blended'], {
-    cwd: resolve(`${subMiniappDir}/${subpackageName}`),
-    stdio: 'inherit',
-    shell: true,
-  });
+  spawnSync(
+    'pnpm',
+    [
+      `build --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --blended`,
+    ],
+    {
+      cwd: nodeCwd,
+      stdio: 'inherit',
+      shell: true,
+    }
+  );
+};
+
+// 处理分包配置 转换为 主包的分包配置
+const transfromSubpackageConfig = (
+  subMiniappDir: string,
+  subpackageName: string,
+  subpageConfig: SubpageConfig
+) => {
+  const pages = get(subpageConfig, 'pages');
+
+  const subPackages = get(subpageConfig, 'subPackages');
+
+  if (pages && Array.isArray(pages) && pages.length > 0) {
+    return [
+      {
+        root: `${subMiniappDir}/${subpackageName}`,
+        pages,
+      },
+      ...(Array.isArray(subPackages) && subPackages.length > 0
+        ? subPackages.map(item => ({
+            ...item,
+            root: `${subMiniappDir}/${subpackageName}/${item.root}`,
+          }))
+        : []),
+    ];
+  }
+
+  return [];
 };
 
 if (subpackage && Array.isArray(subpackage)) {
   // 清空目录
   emptyDirSync(resolve(process.cwd(), subpackageDir));
-  subpackage.reduce(async (pre, cur) => {
+
+  const pullsubpackage = subpackage.reduce(async (pre, cur) => {
     try {
       await pre;
       return new Promise<void>((promistResolve, reject) => {
@@ -47,7 +91,6 @@ if (subpackage && Array.isArray(subpackage)) {
 
         if (svbPath && subpackageName) {
           pullSvn(svbPath, subpackageDir, subpackageName);
-          buildSubpackage(subpackageDir, subpackageName);
           promistResolve();
         } else {
           reject();
@@ -57,4 +100,42 @@ if (subpackage && Array.isArray(subpackage)) {
       return Promise.reject();
     }
   }, Promise.resolve());
+
+  subpackage.reduce(async (pre, cur) => {
+    try {
+      await pre;
+      return new Promise<void>((promistResolve, reject) => {
+        const subpackageName = get(cur, 'name');
+
+        if (subpackageName) {
+          // 获取 配置目录
+          const subAppConfigFilePath = resolve(
+            process.cwd(),
+            `${subpackageDir}`,
+            `./${subpackageName}/project-config/app.config.ts`
+          );
+
+          // 检测是否有配置文件
+          if (existsSync(subAppConfigFilePath)) {
+            const subAppConfig = require(subAppConfigFilePath);
+
+            const transformConfig = transfromSubpackageConfig(
+              subpackageDir,
+              subpackageName,
+              subAppConfig
+            );
+
+            console.log(transformConfig);
+          }
+
+          buildSubpackage(subpackageDir, subpackageName);
+          promistResolve();
+        } else {
+          reject();
+        }
+      });
+    } catch (error) {
+      return Promise.reject();
+    }
+  }, pullsubpackage);
 }

@@ -1,6 +1,6 @@
 import { values, pick } from 'lodash';
 import { join } from 'path';
-import { spawnSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import { prompt } from 'inquirer';
 import * as parseArgs from 'minimist';
 import { existsSync } from 'fs';
@@ -13,12 +13,14 @@ const validateParams = <T>(param: T, range: T[]) => range.includes(param);
 
 const inquirer = async (build?: boolean) => {
   const parseArgv: CommandParams = pick(parseArgs(process.argv.slice(2)), [
-    'env',
-    'type',
-    'blended',
+    'env', // 运行环境
+    'type', // 编译类型
+    'blended', // 将自己编译为独立分包
+    'all', // 拉取分包 并合并分包 打包
+    'moveDir', // 打包分包后编译完成 复制到主包目录路径
   ]);
 
-  const { env: envParam, type, blended } = parseArgv;
+  const { env: envParam, type, blended, all, moveDir } = parseArgv;
 
   const { env, appType } = await prompt([
     {
@@ -50,10 +52,6 @@ const inquirer = async (build?: boolean) => {
     join(process.cwd(), 'project-config', `${REACT_MINI_APP_ENV}.ts`)
   );
 
-  console.log(REACT_MINI_APP_ENV);
-
-  console.log(REACT_MINI_APP_TYPE);
-
   if (exists) {
     // 设置 小程序类型
     process.env.REACT_MINI_APP_ENV = REACT_MINI_APP_ENV;
@@ -65,6 +63,27 @@ const inquirer = async (build?: boolean) => {
       `--------------------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE}-------------------------------------`
     );
 
+    // 如果是 全量打包
+    if (all) {
+      // 编译 公共dll文件
+      execSync('ts-node --esm ./config/build-dll.ts', {
+        stdio: 'inherit',
+        cwd: process.cwd(),
+      });
+
+      // 拉取分包 并编译 复制 到 主项目中
+      execSync('ts-node --esm ./config/build-subpackage.ts', {
+        stdio: 'inherit',
+        cwd: process.cwd(),
+      });
+    }
+
+    // 被主包拉取 作为分包时  设置环境变量  用于 复制 主包目录地址
+    if (blended) {
+      process.env.MAIN_APP_SUBMINIAPP_DIR = moveDir;
+    }
+
+    // 编译主包
     spawnSync(
       'taro',
       [`build --type ${REACT_MINI_APP_TYPE} ${build ? (blended ? '--blended' : '') : '--watch'}`],

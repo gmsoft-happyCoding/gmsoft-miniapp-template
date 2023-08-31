@@ -5,5 +5,5 @@ export default defineAppConfig({
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black',
   },
-  ...require('../project-config/app.config.js'),
+  ...require('../project-config/app.config.ts'),
 });

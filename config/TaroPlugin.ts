@@ -1,5 +1,4 @@
 import { DllReferencePlugin } from 'webpack';
-import { execSync } from 'child_process';
 import { resolve } from 'path';
 import { get } from 'lodash';
 import { existsSync, removeSync, copySync } from 'fs-extra';
@@ -15,12 +14,12 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
   // 开始编译前 钩子
   ctx.onBuildStart(() => {
-    if (!blended) {
-      execSync('ts-node --esm ./config/build-dll.ts', {
-        stdio: 'inherit',
-        cwd: process.cwd(),
-      });
-    }
+    // if (!blended) {
+    //   execSync('ts-node --esm ./config/build-dll.ts', {
+    //     stdio: 'inherit',
+    //     cwd: process.cwd(),
+    //   });
+    // }
   });
 
   // 编译中 对webpack进行操作钩子
@@ -82,16 +81,25 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
     console.log('编译结束！');
 
-    const rootPath = resolve(__dirname, '../../../src');
-    const miniappPath = resolve(rootPath, './subminiapp/sub-one');
+    const rootPath = process.env.MAIN_APP_SUBMINIAPP_DIR;
+
+    console.log(process.env.MAIN_APP_SUBMINIAPP_DIR);
+
+    // || resolve(__dirname, '../../../src');
+
+    // const miniappPath = rootPath ? resolve(rootPath, './subminiapp/sub-one') : '';
+
     const outputPath = resolve(__dirname, '../', `${outputRoot(appType)}`);
 
-    if (existsSync(miniappPath)) {
-      removeSync(miniappPath);
-    }
-    copySync(outputPath, miniappPath);
+    if (rootPath && existsSync(rootPath)) {
+      removeSync(rootPath);
 
-    console.log('拷贝结束！');
+      copySync(outputPath, rootPath);
+
+      console.log('拷贝结束！');
+    } else {
+      console.log('没有对应的目录');
+    }
   });
 
   // 构建完成钩子
