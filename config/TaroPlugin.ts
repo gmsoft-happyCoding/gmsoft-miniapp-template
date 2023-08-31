@@ -83,22 +83,14 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
     const rootPath = process.env.MAIN_APP_SUBMINIAPP_DIR;
 
-    console.log(process.env.MAIN_APP_SUBMINIAPP_DIR);
-
-    // || resolve(__dirname, '../../../src');
-
-    // const miniappPath = rootPath ? resolve(rootPath, './subminiapp/sub-one') : '';
-
     const outputPath = resolve(__dirname, '../', `${outputRoot(appType)}`);
 
-    if (rootPath && existsSync(rootPath)) {
+    if (rootPath) {
       removeSync(rootPath);
 
       copySync(outputPath, rootPath);
 
       console.log('拷贝结束！');
-    } else {
-      console.log('没有对应的目录');
     }
   });
 
