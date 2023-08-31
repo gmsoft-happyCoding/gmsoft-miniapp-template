@@ -33,13 +33,14 @@ const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string)
 const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
   const nodeCwd = resolve(process.cwd(), `${subMiniappDir}/${subpackageName}`);
 
-  console.log(nodeCwd);
+  // 复制分包存放 编译后结果目录
+  const moveDir = resolve(process.cwd(), './src', `${subMiniappDir}/${subpackageName}`);
 
   // 分包项目存放目录
   spawnSync(
     'pnpm',
     [
-      `build --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --blended --moveDir ${nodeCwd}`,
+      `build --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --blended --moveDir ${moveDir}`,
     ],
     {
       cwd: nodeCwd,
