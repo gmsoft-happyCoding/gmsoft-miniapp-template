@@ -1,14 +1,26 @@
-import { resolve } from 'path';
+import { resolve, basename } from 'path';
 import { get, omit } from 'lodash';
 import { emptyDirSync, existsSync } from 'fs-extra';
 import { execSync, spawnSync } from 'child_process';
 import { BuildType } from '../enums/BuildType.enum';
 import { parseJson } from '.';
 
+type SubPackages = Array<{ root: string; pages: string[] }>;
+
 interface SubpageConfig {
   pages: string[];
-  subPackages: Array<{ root: string; pages: string[] }>;
+  subPackages: SubPackages;
 }
+
+// 分包的 分包配置 全部转换为
+const transformSubPackages = (subPackages: SubPackages) =>
+  subPackages.reduce<string[]>((pre: string[], cur: { root: string; pages: string[] }) => {
+    const root = cur.root;
+
+    const pages = cur.pages;
+
+    return [...pre, ...pages.map(item => `${root}/${item}`)];
+  }, []);
 
 // 处理分包配置 转换为 主包的分包配置
 const transfromSubpackageConfig = (
@@ -20,18 +32,15 @@ const transfromSubpackageConfig = (
 
   const subPackages = get(subpageConfig, 'subPackages');
 
+  // 去除路径 前面的  ./
+  const base = basename(subMiniappDir);
+
   if (pages && Array.isArray(pages) && pages.length > 0) {
     return [
       {
-        root: `${subMiniappDir}/${subpackageName}`,
-        pages,
+        root: `${base}/${subpackageName}`,
+        pages: [...pages, ...transformSubPackages(subPackages)],
       },
-      ...(Array.isArray(subPackages) && subPackages.length > 0
-        ? subPackages.map(item => ({
-            ...item,
-            root: `${subMiniappDir}/${subpackageName}/${item.root}`,
-          }))
-        : []),
     ];
   }
 
@@ -54,8 +63,10 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
   // 复制分包存放 编译后结果目录
   const moveDir = resolve(process.cwd(), './src', `${subMiniappDir}/${subpackageName}`);
 
+  const command = process.env.NODE_ENV === 'development' ? 'start' : 'build';
+
   const params = [
-    `build --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --moveDir ${moveDir} --buildType ${BuildType.SUB_PACKAGE} --packagename ${subpackageName}`,
+    `${command} --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --moveDir ${moveDir} --buildType ${BuildType.SUB_PACKAGE} --packagename ${subpackageName}`,
   ];
 
   // 分包项目存放目录

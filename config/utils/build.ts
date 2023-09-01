@@ -8,9 +8,11 @@ const build = (miniType: AppType, buildType: BuildType, mode?: boolean) => {
   spawnSync(
     'taro',
     [
-      `build --type ${miniType} ${
-        mode ? (buildType === BuildType.SUB_PACKAGE ? '--blended' : '') : '--watch'
-      }`,
+      'build',
+      `--type ${miniType}`,
+      ...(mode
+        ? [buildType === BuildType.SUB_PACKAGE ? '--blended' : '']
+        : [buildType !== BuildType.SUB_PACKAGE ? '--watch' : '']),
     ],
     {
       shell: true,

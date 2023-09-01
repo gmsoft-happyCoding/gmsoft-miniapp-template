@@ -107,7 +107,7 @@ export default function Index() {
           <LayoutBtn>跳转本地子页面</LayoutBtn>
         </Navigator>
 
-        <Navigator url="/subminiapp/sub-one/pages/sub/index">
+        <Navigator url="/subminiapp/sub-miniapp/pages/Index/Index">
           <LayoutBtn>跳转子页面</LayoutBtn>
         </Navigator>
       </View>
