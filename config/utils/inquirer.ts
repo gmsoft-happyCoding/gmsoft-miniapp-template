@@ -31,6 +31,8 @@ const inquirer = async (build?: boolean) => {
     packagename,
   } = parseArgv;
 
+  console.log(parseArgv);
+
   const { env, appType } = await prompt([
     {
       type: 'list',

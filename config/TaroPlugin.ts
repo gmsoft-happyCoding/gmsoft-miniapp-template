@@ -13,9 +13,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
   let entryName: string = '';
 
   // 开始编译前 钩子
-  ctx.onBuildStart(() => {
-    console.log(process.env.MINI_APP_SUBPACKAGE_CONFIG);
-  });
+  ctx.onBuildStart(() => {});
 
   // 编译中 对webpack进行操作钩子
   ctx.modifyWebpackChain((args: { chain: any }) => {

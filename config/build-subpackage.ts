@@ -14,7 +14,7 @@ interface SubpageConfig {
 const DIR_NAME = 'project-config';
 
 // 获取配置文件
-const config = require(resolve(process.cwd(), `./${DIR_NAME}/config.ts`));
+const config = require(resolve(process.cwd(), `./${DIR_NAME}/config`));
 
 // 分包项目 存放目录 名称
 const subpackageDir = get(config, 'subpackageDir');

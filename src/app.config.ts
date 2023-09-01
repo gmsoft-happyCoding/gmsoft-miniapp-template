@@ -1,7 +1,3 @@
-import appConfig from '../project-config/app.config';
-
-console.log(appConfig);
-
 export default defineAppConfig({
   window: {
     backgroundTextStyle: 'light',
@@ -9,5 +5,5 @@ export default defineAppConfig({
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black',
   },
-  ...appConfig,
+  ...require('../project-config/app.config'),
 });
