@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { get } from 'lodash';
+import { get, omit } from 'lodash';
 import { emptyDirSync, existsSync } from 'fs-extra';
 import { execSync, spawnSync } from 'child_process';
 import { BuildType } from '../enums/BuildType.enum';
@@ -63,6 +63,7 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
     cwd: nodeCwd,
     stdio: 'inherit',
     shell: true,
+    env: omit(process.env, ['MINI_APP_SUBPACKAGE_CONFIG']),
   });
 };
 
