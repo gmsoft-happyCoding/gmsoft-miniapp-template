@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   /* 模块名称，该名称和模块所在目录名称一致 */
   name: 'miniapp-name',
 
@@ -18,3 +18,5 @@ module.exports = {
     },
   ],
 };
+
+export default config;
