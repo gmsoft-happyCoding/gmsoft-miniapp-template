@@ -28,10 +28,10 @@ const parseJsonString = (jsonString?: string) => {
     try {
       return JSON.parse(jsonString);
     } catch (error) {
-      return undefined;
+      return [];
     }
   }
-  return undefined;
+  return [];
 };
 
 // 任务执行 svn 拉取操作
@@ -50,22 +50,16 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
   // 复制分包存放 编译后结果目录
   const moveDir = resolve(process.cwd(), './src', `${subMiniappDir}/${subpackageName}`);
 
+  const params = [
+    `build --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --moveDir ${moveDir} --buildType ${BuildType.SUB_PACKAGE} --packagename ${subpackageName}`,
+  ];
+
   // 分包项目存放目录
-  spawnSync(
-    'pnpm',
-    [
-      'build',
-      `--env ${process.env.REACT_MINI_APP_ENV}`,
-      `--moveDir ${moveDir}`,
-      `--buildType ${BuildType.SUB_PACKAGE}`,
-      `--packagename ${subpackageName}`,
-    ],
-    {
-      cwd: nodeCwd,
-      stdio: 'inherit',
-      shell: true,
-    }
-  );
+  spawnSync('pnpm', params, {
+    cwd: nodeCwd,
+    stdio: 'inherit',
+    shell: true,
+  });
 };
 
 // 处理分包配置 转换为 主包的分包配置
