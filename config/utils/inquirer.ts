@@ -7,13 +7,17 @@ import { existsSync } from 'fs';
 import { AppType } from '../enums/AppType.enum';
 import { Env } from '../enums/Env.enum';
 import { BuildType } from '../enums/BuildType.enum';
+import buildSubpackage from './build-subpackage';
+import buildMainpackage from './build';
 import type { CommandParams } from '../type';
 
 // 验证参数是否合规
 const validateParams = <T>(param: T, range: T[]) => range.includes(param);
 
 const inquirer = async (build?: boolean) => {
-  const parseArgv: CommandParams = pick(parseArgs(process.argv.slice(2)), [
+  const args: any = parseArgs(process.argv.slice(2));
+
+  const parseArgv: CommandParams = pick(args, [
     'env', // 运行环境
     'type', // 编译类型
     'all', // 拉取分包 并合并分包 打包
@@ -30,8 +34,6 @@ const inquirer = async (build?: boolean) => {
     buildType = BuildType.MAIN_PACKAGE,
     packagename,
   } = parseArgv;
-
-  console.log(parseArgv);
 
   const { env, appType } = await prompt([
     {
@@ -74,6 +76,13 @@ const inquirer = async (build?: boolean) => {
       `--------------------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE}-------------------------------------`
     );
 
+    // 被主包拉取 作为分包时  设置环境变量  用于 复制 主包目录地址
+    if (buildType === BuildType.SUB_PACKAGE) {
+      process.env.MAIN_APP_SUBMINIAPP_DIR = moveDir;
+
+      process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
+    }
+
     // 如果是 全量打包
     if (all) {
       // 编译 公共dll文件
@@ -82,33 +91,36 @@ const inquirer = async (build?: boolean) => {
         cwd: process.cwd(),
       });
 
-      // 拉取分包 并编译 复制 到 主项目中
-      execSync('ts-node --esm ./config/build-subpackage.ts', {
-        stdio: 'inherit',
-        cwd: process.cwd(),
+      buildSubpackage().then(() => {
+        // 编译主包
+        buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
       });
+
+      // 拉取分包 并编译 复制 到 主项目中
+      // execSync('ts-node --esm ./config/build-subpackage.ts', {
+      //   stdio: 'inherit',
+      //   cwd: process.cwd(),
+      // });
+    } else {
+      // 编译主包
+      buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
     }
 
-    // 被主包拉取 作为分包时  设置环境变量  用于 复制 主包目录地址
-    if (buildType === BuildType.SUB_PACKAGE) {
-      process.env.MAIN_APP_SUBMINIAPP_DIR = moveDir;
+    // console.log(process.env.MINI_APP_SUBPACKAGE_CONFIG);
 
-      process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
-    }
-
-    // 编译主包
-    spawnSync(
-      'taro',
-      [
-        `build --type ${REACT_MINI_APP_TYPE} ${
-          build ? (buildType === BuildType.SUB_PACKAGE ? '--blended' : '') : '--watch'
-        }`,
-      ],
-      {
-        shell: true,
-        stdio: 'inherit',
-      }
-    );
+    // spawnSync(
+    //   'taro',
+    //   [
+    //     `build --type ${REACT_MINI_APP_TYPE} ${
+    //       build ? (buildType === BuildType.SUB_PACKAGE ? '--blended' : '') : '--watch'
+    //     }`,
+    //   ],
+    //   {
+    //     shell: true,
+    //     stdio: 'inherit',
+    //     cwd: process.cwd(),
+    //   }
+    // );
   } else {
     console.error(`${env}.ts文件不存在，请检查！`);
 
