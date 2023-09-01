@@ -129,10 +129,10 @@ const build = async () => {
 
               const parse = parseJson(process.env.MINI_APP_SUBPACKAGE_CONFIG);
 
-              // process.env.MINI_APP_SUBPACKAGE_CONFIG = JSON.stringify([
-              //   ...parse,
-              //   ...transformConfig,
-              // ]);
+              process.env.MINI_APP_SUBPACKAGE_CONFIG = JSON.stringify([
+                ...parse,
+                ...transformConfig,
+              ]);
             }
 
             buildSubpackage(subpackageDir, subpackageName);

@@ -92,6 +92,8 @@ const inquirer = async (build?: boolean) => {
       });
 
       buildSubpackage().then(() => {
+        console.log(process.env.MINI_APP_SUBPACKAGE_CONFIG);
+
         // 编译主包
         buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
       });
