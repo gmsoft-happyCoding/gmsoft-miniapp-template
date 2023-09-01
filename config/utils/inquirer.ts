@@ -6,6 +6,7 @@ import * as parseArgs from 'minimist';
 import { existsSync } from 'fs';
 import { AppType } from '../enums/AppType.enum';
 import { Env } from '../enums/Env.enum';
+import { BuildType } from '../enums/BuildType.enum';
 import type { CommandParams } from '../type';
 
 // 验证参数是否合规
@@ -15,12 +16,20 @@ const inquirer = async (build?: boolean) => {
   const parseArgv: CommandParams = pick(parseArgs(process.argv.slice(2)), [
     'env', // 运行环境
     'type', // 编译类型
-    'blended', // 将自己编译为独立分包
     'all', // 拉取分包 并合并分包 打包
     'moveDir', // 打包分包后编译完成 复制到主包目录路径
+    'buildType',
+    'packagename',
   ]);
 
-  const { env: envParam, type, blended, all, moveDir } = parseArgv;
+  const {
+    env: envParam,
+    type,
+    all,
+    moveDir,
+    buildType = BuildType.MAIN_PACKAGE,
+    packagename,
+  } = parseArgv;
 
   const { env, appType } = await prompt([
     {
@@ -79,14 +88,20 @@ const inquirer = async (build?: boolean) => {
     }
 
     // 被主包拉取 作为分包时  设置环境变量  用于 复制 主包目录地址
-    if (blended) {
+    if (buildType === BuildType.SUB_PACKAGE) {
       process.env.MAIN_APP_SUBMINIAPP_DIR = moveDir;
+
+      process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
     }
 
     // 编译主包
     spawnSync(
       'taro',
-      [`build --type ${REACT_MINI_APP_TYPE} ${build ? (blended ? '--blended' : '') : '--watch'}`],
+      [
+        `build --type ${REACT_MINI_APP_TYPE} ${
+          build ? (buildType === BuildType.SUB_PACKAGE ? '--blended' : '') : '--watch'
+        }`,
+      ],
       {
         shell: true,
         stdio: 'inherit',

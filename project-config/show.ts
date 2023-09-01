@@ -2,8 +2,6 @@ const PROTOCOL = 'https';
 
 const DOMIAN = 'www.cqzcjshow.com';
 
-const showConfig = {
+module.exports = {
   envs: {},
 };
-
-module.exports = showConfig;

@@ -2,8 +2,6 @@ const PROTOCOL = 'https';
 
 const DOMIAN = 'www.xcjtest1.gm';
 
-const proConfig = {
+module.exports = {
   envs: {},
 };
-
-module.exports = proConfig;

@@ -2,6 +2,8 @@ import { resolve } from 'path';
 import { get } from 'lodash';
 import { emptyDirSync, existsSync } from 'fs-extra';
 import { execSync, spawnSync } from 'child_process';
+import { BuildType } from './enums/BuildType.enum';
+import { MINI_APP_SUBPACKAGE_CONFIG } from './contant';
 
 interface SubpageConfig {
   pages: string[];
@@ -19,6 +21,18 @@ const subpackageDir = get(config, 'subpackageDir');
 
 // 分包项目配置
 const subpackage = get(config, 'remoteSubpackage');
+
+// 序列化 jsonString
+const parseJsonString = (jsonString?: string) => {
+  if (jsonString) {
+    try {
+      return JSON.parse(jsonString);
+    } catch (error) {
+      return undefined;
+    }
+  }
+  return undefined;
+};
 
 // 任务执行 svn 拉取操作
 const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string) => {
@@ -40,7 +54,11 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
   spawnSync(
     'pnpm',
     [
-      `build --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --blended --moveDir ${moveDir}`,
+      'build',
+      `--env ${process.env.REACT_MINI_APP_ENV}`,
+      `--moveDir ${moveDir}`,
+      `--buildType ${BuildType.SUB_PACKAGE}`,
+      `--packagename ${subpackageName}`,
     ],
     {
       cwd: nodeCwd,
@@ -126,7 +144,12 @@ if (subpackage && Array.isArray(subpackage)) {
               subAppConfig
             );
 
-            console.log(transformConfig);
+            const parse = parseJsonString(process.env.MINI_APP_SUBPACKAGE_CONFIG);
+
+            process.env[`${MINI_APP_SUBPACKAGE_CONFIG}`] = JSON.stringify([
+              ...parse,
+              ...transformConfig,
+            ]);
           }
 
           buildSubpackage(subpackageDir, subpackageName);

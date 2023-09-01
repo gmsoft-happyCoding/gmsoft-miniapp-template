@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
 import { outputRoot } from './utils';
+import { MINI_APP_SUBPACKAGE_CONFIG } from './contant';
 
 export default (ctx: IPluginContext, pluginOpts) => {
   const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
@@ -14,12 +15,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
   // 开始编译前 钩子
   ctx.onBuildStart(() => {
-    // if (!blended) {
-    //   execSync('ts-node --esm ./config/build-dll.ts', {
-    //     stdio: 'inherit',
-    //     cwd: process.cwd(),
-    //   });
-    // }
+    console.log(process.env[`${MINI_APP_SUBPACKAGE_CONFIG}`]);
   });
 
   // 编译中 对webpack进行操作钩子
@@ -42,6 +38,9 @@ export default (ctx: IPluginContext, pluginOpts) => {
             },
           ],
         },
+      },
+      output: {
+        chunkLoadingGlobal: process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME || 'webpackJsonp',
       },
       optimization: {
         providedExports: true,
