@@ -3,7 +3,6 @@ import { get } from 'lodash';
 import { emptyDirSync, existsSync } from 'fs-extra';
 import { execSync, spawnSync } from 'child_process';
 import { BuildType } from './enums/BuildType.enum';
-import { MINI_APP_SUBPACKAGE_CONFIG } from './contant';
 
 interface SubpageConfig {
   pages: string[];
@@ -140,10 +139,7 @@ if (subpackage && Array.isArray(subpackage)) {
 
             const parse = parseJsonString(process.env.MINI_APP_SUBPACKAGE_CONFIG);
 
-            process.env[`${MINI_APP_SUBPACKAGE_CONFIG}`] = JSON.stringify([
-              ...parse,
-              ...transformConfig,
-            ]);
+            process.env.MINI_APP_SUBPACKAGE_CONFIG = JSON.stringify([...parse, ...transformConfig]);
           }
 
           buildSubpackage(subpackageDir, subpackageName);

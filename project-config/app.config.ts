@@ -1,4 +1,3 @@
-import { MINI_APP_SUBPACKAGE_CONFIG } from '../config/contant';
 /** 参考 taro、微信、钉钉小程序  app.config.json的配置  */
 
 const parseJson = (jsonString?: string) => {
@@ -21,6 +20,6 @@ module.exports = {
       root: 'sub/pages',
       pages: ['Index/Index'],
     },
-    ...parseJson(process.env[`${MINI_APP_SUBPACKAGE_CONFIG}`]),
+    ...parseJson(process.env.MINI_APP_SUBPACKAGE_CONFIG),
   ],
 };
