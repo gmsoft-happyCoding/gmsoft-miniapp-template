@@ -1,6 +1,6 @@
 import { values, pick } from 'lodash';
 import { join } from 'path';
-import { execSync, spawnSync } from 'child_process';
+import { execSync } from 'child_process';
 import { prompt } from 'inquirer';
 import * as parseArgs from 'minimist';
 import { existsSync } from 'fs';
@@ -92,37 +92,13 @@ const inquirer = async (build?: boolean) => {
       });
 
       buildSubpackage().then(() => {
-        console.log(process.env.MINI_APP_SUBPACKAGE_CONFIG);
-
         // 编译主包
         buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
       });
-
-      // 拉取分包 并编译 复制 到 主项目中
-      // execSync('ts-node --esm ./config/build-subpackage.ts', {
-      //   stdio: 'inherit',
-      //   cwd: process.cwd(),
-      // });
     } else {
       // 编译主包
       buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
     }
-
-    // console.log(process.env.MINI_APP_SUBPACKAGE_CONFIG);
-
-    // spawnSync(
-    //   'taro',
-    //   [
-    //     `build --type ${REACT_MINI_APP_TYPE} ${
-    //       build ? (buildType === BuildType.SUB_PACKAGE ? '--blended' : '') : '--watch'
-    //     }`,
-    //   ],
-    //   {
-    //     shell: true,
-    //     stdio: 'inherit',
-    //     cwd: process.cwd(),
-    //   }
-    // );
   } else {
     console.error(`${env}.ts文件不存在，请检查！`);
 

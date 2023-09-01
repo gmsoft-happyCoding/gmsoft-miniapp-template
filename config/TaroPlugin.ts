@@ -56,6 +56,9 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
   // 编译中 对文件进行操作钩子
   ctx.modifyBuildAssets(args => {
+    // 作为分包项目 不需要引入 公共js 由 主包负责引入
+    if (blended) return;
+
     const { assets } = args;
 
     // 获得 CachedSource

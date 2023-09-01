@@ -63,6 +63,7 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
     cwd: nodeCwd,
     stdio: 'inherit',
     shell: true,
+    // 排除主进程 对于 MINI_APP_SUBPACKAGE_CONFIG 环境变量 的注入
     env: omit(process.env, ['MINI_APP_SUBPACKAGE_CONFIG']),
   });
 };
