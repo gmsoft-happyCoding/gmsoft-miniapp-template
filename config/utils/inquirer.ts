@@ -83,6 +83,8 @@ const inquirer = async (build?: boolean) => {
       console.log(process.env.NODE_ENV);
 
       process.env.NODE_ENV = build ? 'production' : 'development';
+
+      console.log(process.env.NODE_ENV);
     }
 
     // 如果是 全量打包
@@ -98,7 +100,7 @@ const inquirer = async (build?: boolean) => {
           `----------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE},打包模式:${buildType}-------------------------------------`
         );
 
-        // 编译主包
+        // 编译
         buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
       });
     } else {
@@ -106,7 +108,13 @@ const inquirer = async (build?: boolean) => {
         `------------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE},打包模式:${buildType}-------------------------------------`
       );
 
-      // 编译主包
+      if (buildType === BuildType.SUB_PACKAGE) {
+        console.log('编译 分包 ');
+
+        console.log(process.env.NODE_ENV);
+      }
+
+      // 编译
       buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
     }
   } else {
