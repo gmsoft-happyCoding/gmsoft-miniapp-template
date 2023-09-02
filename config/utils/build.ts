@@ -8,7 +8,7 @@ const build = (miniType: AppType, buildType: BuildType, isBuild?: boolean) => {
     [
       'build',
       `--type ${miniType}`,
-      ...(buildType === BuildType.SUB_PACKAGE ? ['--blended'] : [isBuild ? '' : '--watch']),
+      ...(buildType === BuildType.SUB_PACKAGE ? ['--blended --env development'] : [isBuild ? '' : '--watch']),
     ],
     {
       shell: true,
