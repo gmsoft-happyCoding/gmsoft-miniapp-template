@@ -80,19 +80,25 @@ const config = {
 module.exports = function (merge) {
   console.log(process.env.NODE_ENV);
 
-  console.log(require('./dev'));
-
   if (process.env.NODE_ENV === 'development') {
-    console.log(merge({}, config, mergeEnv(require('./dev'))));
+    console.log('打印 dev.ts');
 
-    console.log(mergeEnv(require('./dev')));
+    console.log(require('./dev.ts'));
 
-    return merge({}, config, mergeEnv(require('./dev')));
+    console.log(mergeEnv(require('./dev.ts')));
+
+    console.log(merge({}, config, mergeEnv(require('./dev.ts'))));
+
+    return merge({}, config, mergeEnv(require('./dev.ts')));
   }
 
-  console.log(merge({}, config, mergeEnv(require('./prod'))));
+  console.log('打印 prod.ts');
 
-  console.log(mergeEnv(require('./prod')));
+  console.log(require('./prod.ts'));
 
-  return merge({}, config, mergeEnv(require('./prod')));
+  console.log(mergeEnv(require('./prod.ts')));
+
+  console.log(merge({}, config, mergeEnv(require('./prod.ts'))));
+
+  return merge({}, config, mergeEnv(require('./prod.ts')));
 };

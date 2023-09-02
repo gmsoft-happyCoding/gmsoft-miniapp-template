@@ -1,4 +1,4 @@
-import { get, reduce } from 'lodash';
+import { get, reduce, merge } from 'lodash';
 import { resolve } from 'path';
 
 const mergeEnv = (config: any) => {
@@ -10,7 +10,7 @@ const mergeEnv = (config: any) => {
 
   const envs = get(envConfig, 'envs', {});
 
-  return Object.assign({}, config, {
+  return merge(config, {
     env: reduce(envs, (result, value, key) => ({ ...result, [key]: JSON.stringify(value) }), {}),
   });
 };
