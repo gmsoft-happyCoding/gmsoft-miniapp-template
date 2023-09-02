@@ -81,6 +81,10 @@ const inquirer = async (build?: boolean) => {
       process.env.MAIN_APP_SUBMINIAPP_DIR = moveDir;
 
       process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
+
+      // 设置 主包打包分包时 环境打包模式  依赖主包
+      // taro 判断 是按 --watch 参数  来定义的
+      process.env.NODE_ENV = build ? 'production' : 'development';
     }
 
     // 如果是 全量打包
