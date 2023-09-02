@@ -79,6 +79,10 @@ const inquirer = async (build?: boolean) => {
       process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
 
       console.log(process.env.NODE_ENV);
+
+      process.env.NODE_ENV = build ? 'production' : 'development';
+
+      console.log(process.env);
     }
 
     // 如果是 全量打包
