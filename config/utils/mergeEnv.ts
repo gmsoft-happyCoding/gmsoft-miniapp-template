@@ -12,6 +12,8 @@ const mergeEnv = (config: any) => {
 
   return merge(config, {
     env: reduce(envs, (result, value, key) => ({ ...result, [key]: JSON.stringify(value) }), {}),
+    // 分包打包 是否 压缩 根据
+    ...(process.env.NODE_ENV === 'production' ? { terser: { enable: false } } : {}),
   });
 };
 
