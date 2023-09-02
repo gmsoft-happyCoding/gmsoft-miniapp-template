@@ -57,13 +57,13 @@ const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string)
 };
 
 // 执行打包操作
-const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
+const buildSubpackage = (subMiniappDir: string, subpackageName: string, isBuild?: boolean) => {
   const nodeCwd = resolve(process.cwd(), `${subMiniappDir}/${subpackageName}`);
 
   // 复制分包存放 编译后结果目录
   const moveDir = resolve(process.cwd(), './src', `${subMiniappDir}/${subpackageName}`);
 
-  const command = process.env.NODE_ENV === 'development' ? 'start' : 'build';
+  const command = isBuild ? 'build' : 'start';
 
   const params = [
     `${command} --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --moveDir ${moveDir} --buildType ${BuildType.SUB_PACKAGE} --packagename ${subpackageName}`,
@@ -79,7 +79,7 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string) => {
   });
 };
 
-const build = async () => {
+const build = async (isBuild?: boolean) => {
   // 项目配置目录
   const DIR_NAME = 'project-config';
 
@@ -148,7 +148,7 @@ const build = async () => {
               ]);
             }
 
-            buildSubpackage(subpackageDir, subpackageName);
+            buildSubpackage(subpackageDir, subpackageName, isBuild);
             promistResolve();
           } else {
             reject();

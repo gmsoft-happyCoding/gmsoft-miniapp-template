@@ -91,7 +91,7 @@ const inquirer = async (build?: boolean) => {
         cwd: process.cwd(),
       });
 
-      buildSubpackage().then(() => {
+      buildSubpackage(build).then(() => {
         // 编译主包
         buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
       });

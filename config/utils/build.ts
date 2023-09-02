@@ -2,7 +2,7 @@ import { spawnSync } from 'child_process';
 import { AppType } from '../enums/AppType.enum';
 import { BuildType } from '../enums/BuildType.enum';
 
-const build = (miniType: AppType, buildType: BuildType, mode?: boolean) => {
+const build = (miniType: AppType, buildType: BuildType, isBuild?: boolean) => {
   console.log(`打包模式:${buildType}`);
 
   spawnSync(
@@ -10,9 +10,7 @@ const build = (miniType: AppType, buildType: BuildType, mode?: boolean) => {
     [
       'build',
       `--type ${miniType}`,
-      ...(mode
-        ? [buildType === BuildType.SUB_PACKAGE ? '--blended' : '']
-        : [buildType !== BuildType.SUB_PACKAGE ? '--watch' : '']),
+      ...(buildType === BuildType.SUB_PACKAGE ? ['--blended'] : [isBuild ? '' : '--watch']),
     ],
     {
       shell: true,
