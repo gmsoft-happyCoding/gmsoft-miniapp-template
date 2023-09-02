@@ -73,6 +73,8 @@ const config = {
         .options({
           sourceMap: process.env.NODE_ENV !== 'production',
         });
+
+      console.log(chain.toConfig());
     },
   },
 };
