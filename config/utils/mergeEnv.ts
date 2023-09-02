@@ -1,5 +1,6 @@
 import { get, reduce, merge } from 'lodash';
 import { resolve } from 'path';
+import { BuildType } from '../enums/BuildType.enum';
 
 const mergeEnv = (config: any) => {
   const envFileName = process.env.REACT_MINI_APP_ENV;
@@ -13,7 +14,11 @@ const mergeEnv = (config: any) => {
   return merge(config, {
     env: reduce(envs, (result, value, key) => ({ ...result, [key]: JSON.stringify(value) }), {}),
     // 分包打包 是否 压缩 根据
-    ...(process.env.NODE_ENV === 'production' ? { terser: { enable: false } } : {}),
+    ...(process.env.MAIN_APP_BUILD_TYPE === BuildType.SUB_PACKAGE
+      ? process.env.NODE_ENV === 'development'
+        ? { terser: { enable: false } }
+        : {}
+      : {}),
   });
 };
 
