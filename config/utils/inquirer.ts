@@ -35,6 +35,8 @@ const inquirer = async (build?: boolean) => {
     packagename,
   } = parseArgv;
 
+  console.log('打印参数');
+
   console.log(parseArgv);
 
   const { env, appType } = await prompt([
@@ -81,8 +83,6 @@ const inquirer = async (build?: boolean) => {
       console.log(process.env.NODE_ENV);
 
       process.env.NODE_ENV = build ? 'production' : 'development';
-
-      console.log(process.env);
     }
 
     // 如果是 全量打包
