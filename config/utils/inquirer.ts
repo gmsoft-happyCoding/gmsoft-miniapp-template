@@ -72,19 +72,13 @@ const inquirer = async (build?: boolean) => {
     // 设置 小程序环境
     process.env.REACT_MINI_APP_TYPE = REACT_MINI_APP_TYPE;
 
-    console.log(
-      `--------------------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE}-------------------------------------`
-    );
-
     // 被主包拉取 作为分包时  设置环境变量  用于 复制 主包目录地址
     if (buildType === BuildType.SUB_PACKAGE) {
       process.env.MAIN_APP_SUBMINIAPP_DIR = moveDir;
 
       process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
 
-      // 设置 主包打包分包时 环境打包模式  依赖主包
-      // taro 判断 是按 --watch 参数  来定义的
-      process.env.NODE_ENV = build ? 'production' : 'development';
+      console.log(process.env);
     }
 
     // 如果是 全量打包
@@ -96,10 +90,18 @@ const inquirer = async (build?: boolean) => {
       });
 
       buildSubpackage(build).then(() => {
+        console.log(
+          `----------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE},打包模式:${buildType}-------------------------------------`
+        );
+
         // 编译主包
         buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
       });
     } else {
+      console.log(
+        `------------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE},打包模式:${buildType}-------------------------------------`
+      );
+
       // 编译主包
       buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
     }
