@@ -35,10 +35,6 @@ const inquirer = async (build?: boolean) => {
     packagename,
   } = parseArgv;
 
-  console.log('打印参数');
-
-  console.log(parseArgv);
-
   const { env, appType } = await prompt([
     {
       type: 'list',
@@ -80,13 +76,7 @@ const inquirer = async (build?: boolean) => {
 
       process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
 
-      console.log(process.env.NODE_ENV);
-
-      console.log(build);
-
-      process.env.NODE_ENV = build ? 'production' : 'development';
-
-      console.log(process.env.NODE_ENV);
+      process.env.MAIN_APP_BUILD_TYPE = buildType;
     }
 
     // 如果是 全量打包
@@ -109,12 +99,6 @@ const inquirer = async (build?: boolean) => {
       console.log(
         `------------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE},打包模式:${buildType}-------------------------------------`
       );
-
-      if (buildType === BuildType.SUB_PACKAGE) {
-        console.log('编译 分包 ');
-
-        console.log(process.env.NODE_ENV);
-      }
 
       // 编译
       buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);

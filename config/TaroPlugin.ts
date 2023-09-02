@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
 import { outputRoot } from './utils';
+import { BuildType } from './enums/BuildType.enum';
 
 export default (ctx: IPluginContext, pluginOpts) => {
   const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
@@ -20,6 +21,9 @@ export default (ctx: IPluginContext, pluginOpts) => {
     const { chain: webpackChain } = args;
 
     webpackChain.merge({
+      ...(process.env.MAIN_APP_BUILD_TYPE === BuildType.SUB_PACKAGE
+        ? { mode: process.env.NODE_ENV || 'production' }
+        : {}),
       plugin: {
         DllReferencePlugin: {
           plugin: DllReferencePlugin,
