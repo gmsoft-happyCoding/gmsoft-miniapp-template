@@ -3,7 +3,7 @@ import { join } from 'path';
 import { execSync } from 'child_process';
 import { prompt } from 'inquirer';
 import * as parseArgs from 'minimist';
-import { existsSync } from 'fs';
+import { existsSync } from 'fs-extra';
 import { AppType } from '../enums/AppType.enum';
 import { Env } from '../enums/Env.enum';
 import { BuildType } from '../enums/BuildType.enum';
@@ -35,6 +35,8 @@ const inquirer = async (build?: boolean) => {
     packagename,
   } = parseArgv;
 
+  console.log(parseArgv);
+
   const { env, appType } = await prompt([
     {
       type: 'list',
@@ -61,9 +63,7 @@ const inquirer = async (build?: boolean) => {
 
   const REACT_MINI_APP_TYPE = type || appType;
 
-  const exists = await existsSync(
-    join(process.cwd(), 'project-config', `${REACT_MINI_APP_ENV}.ts`)
-  );
+  const exists = existsSync(join(process.cwd(), 'project-config', `${REACT_MINI_APP_ENV}.ts`));
 
   if (exists) {
     // 设置 小程序类型
@@ -78,7 +78,7 @@ const inquirer = async (build?: boolean) => {
 
       process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
 
-      console.log(process.env);
+      console.log(process.env.NODE_ENV);
     }
 
     // 如果是 全量打包
