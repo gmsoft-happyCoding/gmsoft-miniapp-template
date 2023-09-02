@@ -80,13 +80,19 @@ const config = {
 module.exports = function (merge) {
   console.log(process.env.NODE_ENV);
 
+  console.log(require('./dev'));
+
   if (process.env.NODE_ENV === 'development') {
     console.log(merge({}, config, mergeEnv(require('./dev'))));
+
+    console.log(mergeEnv(require('./dev')));
 
     return merge({}, config, mergeEnv(require('./dev')));
   }
 
   console.log(merge({}, config, mergeEnv(require('./prod'))));
+
+  console.log(mergeEnv(require('./prod')));
 
   return merge({}, config, mergeEnv(require('./prod')));
 };
