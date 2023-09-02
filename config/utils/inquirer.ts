@@ -82,6 +82,8 @@ const inquirer = async (build?: boolean) => {
 
       console.log(process.env.NODE_ENV);
 
+      console.log(build);
+
       process.env.NODE_ENV = build ? 'production' : 'development';
 
       console.log(process.env.NODE_ENV);
