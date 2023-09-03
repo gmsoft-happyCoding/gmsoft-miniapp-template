@@ -1,6 +1,6 @@
 import { resolve, basename } from 'path';
 import { get, omit } from 'lodash';
-import { emptyDirSync, existsSync } from 'fs-extra';
+import { emptyDir, remove, existsSync } from 'fs-extra';
 import { execSync, spawnSync } from 'child_process';
 import { BuildType } from '../enums/BuildType.enum';
 import { parseJson } from '.';
@@ -13,7 +13,7 @@ interface SubpageConfig {
 }
 
 // 分包的 分包配置 全部转换为
-const transformSubPackages = (subPackages: SubPackages) =>
+const transformSubPackages = (subPackages: SubPackages = []) =>
   subPackages.reduce<string[]>((pre: string[], cur: { root: string; pages: string[] }) => {
     const root = cur.root;
 
@@ -93,8 +93,13 @@ const build = async (isBuild?: boolean) => {
   const subpackage = get(config, 'remoteSubpackage');
 
   if (subpackage && Array.isArray(subpackage)) {
-    // 清空目录
-    emptyDirSync(resolve(process.cwd(), subpackageDir));
+    try {
+      await remove(resolve(process.cwd(), `${subpackageDir}`));
+    } catch (error) {
+      console.log('清空文件夹失败');
+      console.log(JSON.stringify(error));
+      process.exit();
+    }
 
     const pullsubpackage = subpackage.reduce(async (pre, cur) => {
       try {
@@ -139,6 +144,8 @@ const build = async (isBuild?: boolean) => {
                 subpackageName,
                 subAppConfig
               );
+
+              console.log(transformConfig);
 
               const parse = parseJson(process.env.MINI_APP_SUBPACKAGE_CONFIG);
 

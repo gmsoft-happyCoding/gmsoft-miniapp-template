@@ -79,14 +79,14 @@ const inquirer = async (build?: boolean) => {
       process.env.MAIN_APP_BUILD_TYPE = buildType;
     }
 
+    // 编译 公共dll文件
+    execSync('ts-node --esm ./config/build-dll.ts', {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+    });
+
     // 如果是 全量打包
     if (all) {
-      // 编译 公共dll文件
-      execSync('ts-node --esm ./config/build-dll.ts', {
-        stdio: 'inherit',
-        cwd: process.cwd(),
-      });
-
       buildSubpackage(build).then(() => {
         console.log(
           `----------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE},打包模式:${buildType}-------------------------------------`

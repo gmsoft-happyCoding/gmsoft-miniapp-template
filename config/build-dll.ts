@@ -10,6 +10,8 @@ const PRO_DLL_LIBRARY = [
   'dva-core',
   'dva-loading',
   'dva-model-creator',
+  '@linaria/react',
+  '@linaria/core',
 ];
 
 const DEV_DLL_LIBRARY = PRO_DLL_LIBRARY.concat('react-reconciler');
