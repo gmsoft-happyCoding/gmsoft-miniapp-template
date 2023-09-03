@@ -89,29 +89,28 @@ export default function Index() {
         <LayoutBtn type="primary" onClick={onLogin}>
           获取登录code
         </LayoutBtn>
-
         <LayoutBtn type="primary" onClick={askAuthUserInfo}>
           用户信息获取授权
         </LayoutBtn>
-
         <LayoutBtn type="secondary" onClick={bindgetuserinfo}>
           获取微信用户信息
         </LayoutBtn>
-
         {/* @ts-ignore */}
         <LayoutBtn openType="getPhoneNumber" onGetrealtimephonenumber={bindgetrealtimephonenumber}>
           获取手机号码
         </LayoutBtn>
-
         <Navigator url="/sub/pages/Index/Index">
           <LayoutBtn>跳转本地子页面</LayoutBtn>
         </Navigator>
-
         <Navigator url="/subminiapp/sub-miniapp/pages/Index/Index">
           <LayoutBtn>跳转子页面</LayoutBtn>
         </Navigator>
 
+        <View>{process.env.REACT_MINIAPP}</View>
+
         <View>{process.env.MAIN_APP_BASE_PATH}</View>
+
+        <View>{process.env.REACT_DJC_DATAGATWAY}</View>
       </View>
     </Container>
   );
