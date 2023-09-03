@@ -24,6 +24,7 @@ const inquirer = async (build?: boolean) => {
     'moveDir', // 打包分包后编译完成 复制到主包目录路径
     'buildType',
     'packagename',
+    'basePath',
   ]);
 
   const {
@@ -33,6 +34,7 @@ const inquirer = async (build?: boolean) => {
     moveDir,
     buildType = BuildType.MAIN_PACKAGE,
     packagename,
+    basePath,
   } = parseArgv;
 
   const { env, appType } = await prompt([
@@ -77,13 +79,17 @@ const inquirer = async (build?: boolean) => {
       process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME = packagename;
 
       process.env.MAIN_APP_BUILD_TYPE = buildType;
+
+      process.env.MAIN_APP_BASE_PATH = basePath;
     }
 
-    // 编译 公共dll文件
-    execSync('ts-node --esm ./config/build-dll.ts', {
-      stdio: 'inherit',
-      cwd: process.cwd(),
-    });
+    if (buildType === BuildType.MAIN_PACKAGE) {
+      // 编译 公共dll文件
+      execSync('ts-node --esm ./config/build-dll.ts', {
+        stdio: 'inherit',
+        cwd: process.cwd(),
+      });
+    }
 
     // 如果是 全量打包
     if (all) {

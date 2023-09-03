@@ -1,6 +1,7 @@
 import { resolve, basename } from 'path';
 import { get, omit } from 'lodash';
-import { emptyDir, remove, existsSync } from 'fs-extra';
+import { existsSync } from 'fs-extra';
+import { rimraf } from 'rimraf';
 import { execSync, spawnSync } from 'child_process';
 import { BuildType } from '../enums/BuildType.enum';
 import { parseJson } from '.';
@@ -11,6 +12,9 @@ interface SubpageConfig {
   pages: string[];
   subPackages: SubPackages;
 }
+
+// 获取路径的 基础路径
+const getPathBase = (path: string) => basename(path);
 
 // 分包的 分包配置 全部转换为
 const transformSubPackages = (subPackages: SubPackages = []) =>
@@ -33,7 +37,7 @@ const transfromSubpackageConfig = (
   const subPackages = get(subpageConfig, 'subPackages');
 
   // 去除路径 前面的  ./
-  const base = basename(subMiniappDir);
+  const base = getPathBase(subMiniappDir);
 
   if (pages && Array.isArray(pages) && pages.length > 0) {
     return [
@@ -63,10 +67,12 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string, isBuild?
   // 复制分包存放 编译后结果目录
   const moveDir = resolve(process.cwd(), './src', `${subMiniappDir}/${subpackageName}`);
 
+  const base = getPathBase(subMiniappDir);
+
   const command = isBuild ? 'build' : 'start';
 
   const params = [
-    `${command} --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --moveDir ${moveDir} --buildType ${BuildType.SUB_PACKAGE} --packagename ${subpackageName}`,
+    `${command} --basePath /${base}/${subpackageName} --env ${process.env.REACT_MINI_APP_ENV} --type ${process.env.REACT_MINI_APP_TYPE} --moveDir ${moveDir} --buildType ${BuildType.SUB_PACKAGE} --packagename ${subpackageName}`,
   ];
 
   // 分包项目存放目录
@@ -94,9 +100,9 @@ const build = async (isBuild?: boolean) => {
 
   if (subpackage && Array.isArray(subpackage)) {
     try {
-      await remove(resolve(process.cwd(), `${subpackageDir}`));
+      await rimraf(resolve(process.cwd(), `${subpackageDir}`));
     } catch (error) {
-      console.log('清空文件夹失败');
+      console.log(`删除${subpackageDir}文件夹失败`);
       console.log(JSON.stringify(error));
       process.exit();
     }
@@ -145,6 +151,7 @@ const build = async (isBuild?: boolean) => {
                 subAppConfig
               );
 
+              console.log('------------------ 分包结构 --------------------------');
               console.log(transformConfig);
 
               const parse = parseJson(process.env.MINI_APP_SUBPACKAGE_CONFIG);

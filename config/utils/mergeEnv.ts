@@ -12,7 +12,13 @@ const mergeEnv = (config: any) => {
   const envs = get(envConfig, 'envs', {});
 
   return merge(config, {
-    env: reduce(envs, (result, value, key) => ({ ...result, [key]: JSON.stringify(value) }), {}),
+    env: reduce(envs, (result, value, key) => ({ ...result, [key]: JSON.stringify(value) }), {
+      ...(process.env.MAIN_APP_BUILD_TYPE === BuildType.SUB_PACKAGE
+        ? {
+            MAIN_APP_BASE_PATH: JSON.stringify(process.env.MAIN_APP_BASE_PATH || ''),
+          }
+        : {}),
+    }),
     // 分包打包 是否 压缩 根据
     ...(process.env.MAIN_APP_BUILD_TYPE === BuildType.SUB_PACKAGE
       ? process.env.NODE_ENV === 'development'

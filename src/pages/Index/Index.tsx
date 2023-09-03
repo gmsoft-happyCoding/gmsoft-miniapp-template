@@ -110,6 +110,8 @@ export default function Index() {
         <Navigator url="/subminiapp/sub-miniapp/pages/Index/Index">
           <LayoutBtn>跳转子页面</LayoutBtn>
         </Navigator>
+
+        <View>{process.env.MAIN_APP_BASE_PATH}</View>
       </View>
     </Container>
   );
