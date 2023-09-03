@@ -106,8 +106,6 @@ export default function Index() {
           <LayoutBtn>跳转子页面</LayoutBtn>
         </Navigator>
 
-        <View>{process.env.REACT_MINIAPP}</View>
-
         <View>{process.env.MAIN_APP_BASE_PATH}</View>
 
         <View>{process.env.REACT_DJC_DATAGATWAY}</View>
