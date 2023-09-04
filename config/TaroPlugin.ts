@@ -50,6 +50,9 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
     // 删除 react 解析问题
     webpackChain.resolve.alias.delete('react$');
+    webpackChain.resolve.alias.delete('react-reconciler$');
+
+    // taro-react 依赖包
     webpackChain.resolve.alias.set(
       'react-reconciler/constants',
       'react-reconciler/cjs/react-reconciler-constants.production.min.js'

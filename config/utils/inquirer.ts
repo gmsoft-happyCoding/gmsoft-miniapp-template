@@ -90,6 +90,10 @@ const inquirer = async (build?: boolean) => {
       execSync('ts-node --esm ./config/build-dll.ts', {
         stdio: 'inherit',
         cwd: process.cwd(),
+        env: {
+          NODE_ENV: build ? 'production' : 'development',
+          REACT_MINI_APP_TYPE,
+        },
       });
     }
 

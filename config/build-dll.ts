@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { webpack, DllPlugin } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import { AppType } from './enums/AppType.enum';
 
 const PRO_DLL_LIBRARY = [
   'react',
@@ -15,6 +16,16 @@ const PRO_DLL_LIBRARY = [
 ];
 
 const DEV_DLL_LIBRARY = PRO_DLL_LIBRARY.concat('react-reconciler');
+
+const globalObject = (appType?: AppType) => {
+  switch (appType) {
+    case AppType.DD:
+      return 'dd';
+    case AppType.WEAPP:
+    default:
+      return 'wx';
+  }
+};
 
 const webpackConfig = {
   mode: process.env.NODE_ENV,
@@ -33,7 +44,7 @@ const webpackConfig = {
       name: '[name]',
       type: 'global',
     },
-    globalObject: 'wx',
+    globalObject: globalObject(process.env.REACT_MINI_APP_TYPE as AppType),
   },
   module: {
     rules: [
