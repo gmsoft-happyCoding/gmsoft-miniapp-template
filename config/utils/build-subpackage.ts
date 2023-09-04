@@ -85,7 +85,17 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string, isBuild?
   });
 };
 
-const build = async (isBuild?: boolean) => {
+// 进行依赖映射
+const subDependentLink = async () => {
+  spawnSync('pnpm', ['install'], {
+    stdio: 'inherit',
+    shell: true,
+  });
+
+  return Promise.resolve();
+};
+
+const build = async (isBuild?: boolean, pull?: boolean) => {
   // 项目配置目录
   const DIR_NAME = 'project-config';
 
@@ -99,33 +109,39 @@ const build = async (isBuild?: boolean) => {
   const subpackage = get(config, 'remoteSubpackage');
 
   if (subpackage && Array.isArray(subpackage)) {
-    try {
-      await rimraf(resolve(process.cwd(), `${subpackageDir}`));
-    } catch (error) {
-      console.log(`删除${subpackageDir}文件夹失败`);
-      console.log(JSON.stringify(error));
-      process.exit();
+    if (pull) {
+      try {
+        await rimraf(resolve(process.cwd(), `${subpackageDir}`));
+      } catch (error) {
+        console.log(`删除${subpackageDir}文件夹失败`);
+        console.log(JSON.stringify(error));
+        process.exit();
+      }
     }
 
-    const pullsubpackage = subpackage.reduce(async (pre, cur) => {
-      try {
-        await pre;
-        return new Promise<void>((promistResolve, reject) => {
-          const svbPath = get(cur, 'repositories');
+    const pullsubpackage = pull
+      ? subpackage.reduce(async (pre, cur) => {
+          try {
+            await pre;
+            return new Promise<void>((promistResolve, reject) => {
+              const svbPath = get(cur, 'repositories');
 
-          const subpackageName = get(cur, 'name');
+              const subpackageName = get(cur, 'name');
 
-          if (svbPath && subpackageName) {
-            pullSvn(svbPath, subpackageDir, subpackageName);
-            promistResolve();
-          } else {
-            reject();
+              if (svbPath && subpackageName) {
+                pullSvn(svbPath, subpackageDir, subpackageName);
+                promistResolve();
+              } else {
+                reject();
+              }
+            });
+          } catch (error) {
+            return Promise.reject();
           }
-        });
-      } catch (error) {
-        return Promise.reject();
-      }
-    }, Promise.resolve());
+        }, Promise.resolve())
+      : Promise.resolve();
+
+    await subDependentLink();
 
     return subpackage.reduce(async (pre, cur) => {
       try {
@@ -152,6 +168,7 @@ const build = async (isBuild?: boolean) => {
               );
 
               console.log('------------------ 分包结构 --------------------------');
+
               console.log(transformConfig);
 
               const parse = parseJson(process.env.MINI_APP_SUBPACKAGE_CONFIG);

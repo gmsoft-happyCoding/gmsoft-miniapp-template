@@ -11,10 +11,12 @@
   "scripts": {
     "genapi": "easymock init",
     "start": "ts-node --esm ./config/start.ts",
-    "start:all": "ts-node --esm ./config/start.ts --all",
+    "start:all": "ts-node --esm ./config/start.ts --all ",
+    "start:pull": "ts-node --esm ./config/start.ts --all --pull",
     "build": "ts-node --esm ./config/build.ts",
     "build:dll": "ts-node --esm ./config/build-dll.ts",
-    "build:all": "ts-node --esm ./config/build.ts --all"
+    "build:all": "ts-node --esm ./config/build.ts --all",
+    "build:pull": "ts-node --esm ./config/build.ts --all --pull"
   },
   "browserslist": [
     "last 3 versions",

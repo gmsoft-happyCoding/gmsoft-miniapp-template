@@ -21,6 +21,7 @@ const inquirer = async (build?: boolean) => {
     'env', // 运行环境
     'type', // 编译类型
     'all', // 拉取分包 并合并分包 打包
+    'pull',
     'moveDir', // 打包分包后编译完成 复制到主包目录路径
     'buildType',
     'packagename',
@@ -31,6 +32,7 @@ const inquirer = async (build?: boolean) => {
     env: envParam,
     type,
     all,
+    pull,
     moveDir,
     buildType = BuildType.MAIN_PACKAGE,
     packagename,
@@ -93,7 +95,7 @@ const inquirer = async (build?: boolean) => {
 
     // 如果是 全量打包
     if (all) {
-      buildSubpackage(build).then(() => {
+      buildSubpackage(build, pull).then(() => {
         console.log(
           `----------------当前环境：${REACT_MINI_APP_ENV},小程序类型：${REACT_MINI_APP_TYPE},打包模式:${buildType}-------------------------------------`
         );
