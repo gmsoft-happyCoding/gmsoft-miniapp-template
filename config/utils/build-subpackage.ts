@@ -85,11 +85,10 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string, isBuild?
   });
 };
 
-// 进行依赖映射
 const subDependentLink = async () => {
-  spawnSync('pnpm', ['install'], {
+  // 进行依赖映射
+  execSync('pnpm install', {
     stdio: 'inherit',
-    shell: true,
   });
 
   return Promise.resolve();
@@ -141,11 +140,14 @@ const build = async (isBuild?: boolean, pull?: boolean) => {
         }, Promise.resolve())
       : Promise.resolve();
 
-    await subDependentLink();
-
-    return subpackage.reduce(async (pre, cur) => {
+    return subpackage.reduce(async (pre, cur, index) => {
       try {
         await pre;
+
+        if (index === 0) {
+          await subDependentLink();
+        }
+
         return new Promise<void>((promistResolve, reject) => {
           const subpackageName = get(cur, 'name');
 

@@ -29,13 +29,13 @@ const mergeEnv = (config: any) => {
               envTransfrom(get(require(defaultConfigPath), 'envs', {})),
               envTransfrom(get(require(envConfigPath), 'envs', {}))
             ),
-            // 分包打包 是否 压缩 根据
-            ...(process.env.MAIN_APP_BUILD_TYPE === BuildType.SUB_PACKAGE
-              ? process.env.NODE_ENV === 'development'
-                ? { terser: { enable: false } }
-                : {}
-              : {}),
           },
+          // 分包打包 是否 压缩 根据
+          ...(process.env.MAIN_APP_BUILD_TYPE === BuildType.SUB_PACKAGE
+            ? process.env.NODE_ENV === 'development'
+              ? { terser: { enable: false } }
+              : {}
+            : {}),
         });
       } else {
         console.log(`${resolve(process.cwd(), 'project-config')}下缺少<default.ts>文件`);
