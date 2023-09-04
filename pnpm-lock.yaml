@@ -31,21 +31,6 @@ importers:
       '@tarojs/plugin-platform-alipay-dd':
         specifier: ^0.2.0
         version: 0.2.0(@tarojs/plugin-platform-alipay@3.6.5)(@tarojs/shared@3.6.5)
-      '@tarojs/plugin-platform-h5':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-jd':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-qq':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-swan':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-tt':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
       '@tarojs/plugin-platform-weapp':
         specifier: 3.6.5
         version: 3.6.5(@types/react@18.2.20)
@@ -110,6 +95,9 @@ importers:
       '@linaria/babel-preset':
         specifier: ^4.5.4
         version: 4.5.4
+      '@linaria/shaker':
+        specifier: ^4.5.3
+        version: 4.5.3
       '@linaria/webpack-loader':
         specifier: ^4.5.4
         version: 4.5.4(webpack@5.88.2)
@@ -146,9 +134,6 @@ importers:
       '@types/react-redux':
         specifier: ^7.1.25
         version: 7.1.25
-      '@types/redux':
-        specifier: ^3.6.0
-        version: 3.6.0
       '@types/webpack-env':
         specifier: ^1.13.6
         version: 1.13.6
@@ -206,184 +191,6 @@ importers:
       rimraf:
         specifier: ^5.0.1
         version: 5.0.1
-      stylelint:
-        specifier: ^14.4.0
-        version: 14.4.0
-      ts-node:
-        specifier: ^10.9.1
-        version: 10.9.1(@swc/core@1.3.42)(@types/node@18.15.11)(typescript@4.1.2)
-      typescript:
-        specifier: ^4.1.0
-        version: 4.1.2
-      webpack:
-        specifier: ^5.88.2
-        version: 5.88.2(@swc/core@1.3.42)
-
-  subminiapp/sub-miniapp:
-    dependencies:
-      '@babel/runtime':
-        specifier: 7.18.0
-        version: 7.18.0
-      '@tarojs/components':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)(react@18.2.0)
-      '@tarojs/helper':
-        specifier: 3.6.5
-        version: 3.6.5
-      '@tarojs/plugin-framework-react':
-        specifier: 3.6.5
-        version: 3.6.5(@pmmmwh/react-refresh-webpack-plugin@0.5.5)(@types/react@18.2.20)(react-refresh@0.11.0)(react@18.2.0)
-      '@tarojs/plugin-platform-alipay':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)(react@18.2.0)
-      '@tarojs/plugin-platform-alipay-dd':
-        specifier: ^0.2.0
-        version: 0.2.0(@tarojs/plugin-platform-alipay@3.6.5)(@tarojs/shared@3.6.5)
-      '@tarojs/plugin-platform-h5':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-jd':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-qq':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-swan':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-tt':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/plugin-platform-weapp':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/react':
-        specifier: 3.6.5
-        version: 3.6.5(react@18.2.0)
-      '@tarojs/runtime':
-        specifier: 3.6.5
-        version: 3.6.5
-      '@tarojs/service':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/shared':
-        specifier: 3.6.5
-        version: 3.6.5
-      '@tarojs/taro':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      dva-core:
-        specifier: ^2.0.4
-        version: 2.0.4(redux@4.2.1)
-      dva-loading:
-        specifier: ^3.0.24
-        version: 3.0.24(dva-core@2.0.4)
-      dva-model-creator:
-        specifier: ^0.4.3
-        version: 0.4.3
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      react-reconciler:
-        specifier: 0.27.0
-        version: 0.27.0(react@18.2.0)
-      react-redux:
-        specifier: ^8.1.2
-        version: 8.1.2(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react-native@0.72.4)(react@18.2.0)(redux@4.2.1)
-      redux:
-        specifier: ^4.2.1
-        version: 4.2.1
-      regenerator-runtime:
-        specifier: 0.11.1
-        version: 0.11.1
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.21.8
-        version: 7.21.8
-      '@babel/preset-env':
-        specifier: ^7.22.10
-        version: 7.22.10(@babel/core@7.21.8)
-      '@pmmmwh/react-refresh-webpack-plugin':
-        specifier: ^0.5.5
-        version: 0.5.5(react-refresh@0.11.0)(webpack@5.88.2)
-      '@tarojs/cli':
-        specifier: 3.6.5
-        version: 3.6.5(@types/react@18.2.20)
-      '@tarojs/webpack5-runner':
-        specifier: 3.6.5
-        version: 3.6.5(@babel/core@7.21.8)(@swc/core@1.3.42)(@types/react@18.2.20)(postcss@8.4.18)(react@18.2.0)(webpack@5.88.2)
-      '@types/core-js':
-        specifier: ^2.5.5
-        version: 2.5.5
-      '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
-      '@types/lodash':
-        specifier: ^4.14.194
-        version: 4.14.194
-      '@types/node':
-        specifier: ^18.15.11
-        version: 18.15.11
-      '@types/react':
-        specifier: ^18.0.0
-        version: 18.2.20
-      '@types/webpack-env':
-        specifier: ^1.13.6
-        version: 1.13.6
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^5.20.0
-        version: 5.20.0(@typescript-eslint/parser@5.20.0)(eslint@8.12.0)(typescript@4.1.2)
-      '@typescript-eslint/parser':
-        specifier: ^5.20.0
-        version: 5.20.0(eslint@8.12.0)(typescript@4.1.2)
-      babel-loader:
-        specifier: ^9.1.3
-        version: 9.1.3(@babel/core@7.21.8)(webpack@5.88.2)
-      babel-plugin-lodash:
-        specifier: ^3.3.4
-        version: 3.3.4
-      babel-preset-taro:
-        specifier: 3.6.5
-        version: 3.6.5(@babel/core@7.21.8)
-      clean-webpack-plugin:
-        specifier: ^4.0.0
-        version: 4.0.0(webpack@5.88.2)
-      eslint:
-        specifier: ^8.12.0
-        version: 8.12.0
-      eslint-config-taro:
-        specifier: 3.6.5
-        version: 3.6.5(@babel/core@7.21.8)(eslint@8.12.0)(typescript@4.1.2)
-      eslint-plugin-import:
-        specifier: ^2.12.0
-        version: 2.12.0(@typescript-eslint/parser@5.20.0)(eslint@8.12.0)
-      eslint-plugin-react:
-        specifier: ^7.8.2
-        version: 7.8.2(eslint@8.12.0)
-      eslint-plugin-react-hooks:
-        specifier: ^4.2.0
-        version: 4.2.0(eslint@8.12.0)
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.1.1
-      inquirer:
-        specifier: ^8.2.5
-        version: 8.2.5
-      postcss:
-        specifier: ^8.4.18
-        version: 8.4.18
-      prettier:
-        specifier: ^2.8.8
-        version: 2.8.8
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
-      react-refresh:
-        specifier: ^0.11.0
-        version: 0.11.0
       stylelint:
         specifier: ^14.4.0
         version: 14.4.0
@@ -4013,25 +3820,6 @@ packages:
       - '@types/webpack'
       - '@types/webpack-dev-server'
 
-  /@tarojs/components-react@3.6.5(@types/react@18.2.20):
-    resolution: {integrity: sha512-GmeYTIo7IHWhr2gbdRoHMbX6PUaHz0hJ+WCLgcvv/XeTXufQxCvG3B4TBlvFzdagDsAJFL4WxwA29zAXi5M7Zw==}
-    dependencies:
-      '@babel/runtime': 7.18.0
-      '@tarojs/components': 3.6.5(@types/react@18.2.20)(react@18.2.0)
-      '@tarojs/taro': 3.6.5(@types/react@18.2.20)
-      classnames: 2.3.2
-      intersection-observer: 0.7.0
-      resolve-pathname: 3.0.0
-      swiper: 6.8.0
-      weui: 1.1.3
-    transitivePeerDependencies:
-      - '@types/react'
-      - '@types/react-native'
-      - '@types/webpack'
-      - '@types/webpack-dev-server'
-      - vue
-    dev: false
-
   /@tarojs/components@3.6.5(@types/react@18.2.20)(react@18.2.0):
     resolution: {integrity: sha512-DpWPP/bGNf4ezULzdKWUAJpyiCUlu1kEeqHs1UF+gaoCHg+TDvGJv/JxuinwZFgmptnsCFZrCy+s1jW6gNygrw==}
     peerDependencies:
@@ -4165,26 +3953,6 @@ packages:
       - supports-color
       - vue
 
-  /@tarojs/plugin-platform-h5@3.6.5(@types/react@18.2.20):
-    resolution: {integrity: sha512-l5p9I4yq2s95moe21x7jTZPC9n0LwSfbntSneCUC2mJzwQFTMgCI1OvKZYIwm2MIoWXI1OsPpTTYpHsl23Jy4Q==}
-    dependencies:
-      '@tarojs/components': 3.6.5(@types/react@18.2.20)(react@18.2.0)
-      '@tarojs/components-react': 3.6.5(@types/react@18.2.20)
-      '@tarojs/router': 3.6.5(@types/react@18.2.20)
-      '@tarojs/service': 3.6.5(@types/react@18.2.20)
-      '@tarojs/shared': 3.6.5
-      '@tarojs/taro-h5': 3.6.5(@types/react@18.2.20)
-      babel-plugin-transform-taroapi: 3.6.5
-      resolve: 1.22.2
-    transitivePeerDependencies:
-      - '@types/react'
-      - '@types/react-native'
-      - '@types/webpack'
-      - '@types/webpack-dev-server'
-      - supports-color
-      - vue
-    dev: false
-
   /@tarojs/plugin-platform-jd@3.6.5(@types/react@18.2.20):
     resolution: {integrity: sha512-KdS4LcDNfjNi47LMYdTd9CjnCO0o/G77T2fViFjMs2Rjtls6ooFmhw0VRuGIrq/n24P1qrlSTwtCBNk3rnNq/A==}
     dependencies:
@@ -4196,6 +3964,7 @@ packages:
       - '@types/webpack-dev-server'
       - supports-color
       - vue
+    dev: true
 
   /@tarojs/plugin-platform-qq@3.6.5(@types/react@18.2.20):
     resolution: {integrity: sha512-M+rP7CaR0AUKnW0g+kurA4lDez2e7BQduYUN+gucta/+qmCRh8ziS9YmKy4dwPPue+hfLhsWZnlarsJVswNsOA==}
@@ -4210,6 +3979,7 @@ packages:
       - '@types/webpack-dev-server'
       - supports-color
       - vue
+    dev: true
 
   /@tarojs/plugin-platform-swan@3.6.5(@types/react@18.2.20):
     resolution: {integrity: sha512-vlfWRz8mmobyPyjWXe2HqAfJY86XDJiQkUAogYjjVjSqsfjw8Nmf1qPNk6IY8qlb+YdvhSWgGX08JwdbBD1AXg==}
@@ -4224,6 +3994,7 @@ packages:
       - '@types/webpack-dev-server'
       - supports-color
       - vue
+    dev: true
 
   /@tarojs/plugin-platform-tt@3.6.5(@types/react@18.2.20):
     resolution: {integrity: sha512-Z4Zkmgq2rmHmFaXlibeK/9EscMIbys/xxPEojAFiEL3gWC3tr6UftMUflPmchiFvlUhMzDGGwtOwp/F59g/hGA==}
@@ -4238,6 +4009,7 @@ packages:
       - '@types/webpack-dev-server'
       - supports-color
       - vue
+    dev: true
 
   /@tarojs/plugin-platform-weapp@3.6.5(@types/react@18.2.20):
     resolution: {integrity: sha512-bila7cnFObj1YlqYQvgAW/FtBWGILM9nEolLW8vvRq2K4bptiGlGrf9NqrfkqJdrqCNJIL4941vQKFj/3i65Aw==}
@@ -4315,28 +4087,6 @@ packages:
 
   /@tarojs/shared@3.6.5:
     resolution: {integrity: sha512-8Ed4L/nqDMNzih8VYLn0XTgDuGPC+wo0moFAdJHa+51WutBrbbc4R5/OhZo5w38liiAxVLAnd85AuFIYOzgJvQ==}
-
-  /@tarojs/taro-h5@3.6.5(@types/react@18.2.20):
-    resolution: {integrity: sha512-eSqR7FNuHvLRlptFfgITehd48U3GQOfzQk5YI999lShiy6iy+y/2+IsfCMgG1V6VrqYWsFS20CPd5tV0jPq9SQ==}
-    dependencies:
-      '@tarojs/api': 3.6.5
-      '@tarojs/components': 3.6.5(@types/react@18.2.20)(react@18.2.0)
-      '@tarojs/router': 3.6.5(@types/react@18.2.20)
-      '@tarojs/runtime': 3.6.5
-      '@tarojs/shared': 3.6.5
-      abortcontroller-polyfill: 1.7.5
-      base64-js: 1.5.1
-      intersection-observer: 0.7.0
-      jsonp-retry: 1.0.3
-      query-string: 7.1.3
-      whatwg-fetch: 3.6.17
-    transitivePeerDependencies:
-      - '@types/react'
-      - '@types/react-native'
-      - '@types/webpack'
-      - '@types/webpack-dev-server'
-      - vue
-    dev: false
 
   /@tarojs/taro-loader@3.6.5(@types/react@18.2.20):
     resolution: {integrity: sha512-F8sUyYgHjd7rrzOYJ16IvAvFDqK3XvVWxOrobeLN+ajr7Iawi6eaP2byOgo4K7kCuopasBtx4y/kZ+8JsSEc8A==}
@@ -4745,13 +4495,6 @@ packages:
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
 
-  /@types/redux@3.6.0:
-    resolution: {integrity: sha512-ic+60DXHW5seNyqFvfr7Sk5cnXs+HsF9tIeIaxjOuSP5kzgDXC+AzKTYmjAfuLx4Sccm/0vjwBQj3OOkUkwOqg==}
-    deprecated: This is a stub types definition for Redux (https://github.com/reactjs/redux). Redux provides its own type definitions, so you don't need @types/redux installed!
-    dependencies:
-      redux: 4.2.1
-    dev: true
-
   /@types/responselike@1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
@@ -5130,10 +4873,6 @@ packages:
     engines: {node: '>=6.5'}
     dependencies:
       event-target-shim: 5.0.1
-    dev: false
-
-  /abortcontroller-polyfill@1.7.5:
-    resolution: {integrity: sha512-JMJ5soJWP18htbbxJjG7bG6yuI6pRhgJ0scHHTfkUjf6wjP912xZWvM+A4sJK3gqd9E8fcPbDnOefbA9Th/FIQ==}
     dev: false
 
   /accepts@1.3.8:
@@ -5711,6 +5450,7 @@ packages:
 
   /babel-plugin-transform-taroapi@3.6.5:
     resolution: {integrity: sha512-VCGJFUg/gcOV+c7y/3KI/SE+FBzBeALK0VOTC4aCqNub6p0TNNwDs2lS8UUY39M/tR1J2qo3JXqHBY83fcc15Q==}
+    dev: true
 
   /babel-preset-fbjs@3.4.0(@babel/core@7.21.8):
     resolution: {integrity: sha512-9ywCsCvo1ojrw0b+XYk7aFvTH6D9064t0RIL1rtMf3nsa02Xw41MS7sZw216Im35xj/UY0PDBQsa1brUDDF1Ow==}
@@ -9843,12 +9583,6 @@ packages:
       graceful-fs: 4.2.11
     dev: true
 
-  /jsonp-retry@1.0.3:
-    resolution: {integrity: sha512-/jmE9+shtKP+oIt2AWO9Wx+C27NTGpLCEw4QHOqpoV2X6ta374HE9C+EEdgu8r3iLKgFMx7u5j0mCwxWN8UdlA==}
-    dependencies:
-      object-assign: 4.1.1
-    dev: false
-
   /jsprim@1.4.2:
     resolution: {integrity: sha512-P2bSOMAc/ciLz6DzgjVlGJP9+BrJWu5UDGK70C2iweC5QBIeFf0ZXRvGjEj2uYgrY2MkAAhsSWHDWlFtEroZWw==}
     engines: {node: '>=0.6.0'}
@@ -12441,6 +12175,7 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
 
   /react-html-attributes@1.4.6:
     resolution: {integrity: sha512-uS3MmThNKFH2EZUQQw4k5pIcU7XIr208UE5dktrj/GOH1CMagqxDl4DCLpt3o2l9x+IB5nVYBeN3Cr4IutBXAg==}
@@ -13045,6 +12780,7 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
 
   /scheduler@0.24.0-canary-efb381bbf-20230505:
     resolution: {integrity: sha512-ABvovCDe/k9IluqSh4/ISoq8tIJnW8euVAWYt5j/bg6dRnqwQwiGO1F/V4AyK96NGF/FB04FhOUDuWj8IKfABA==}
