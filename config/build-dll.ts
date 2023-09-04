@@ -27,7 +27,7 @@ const webpackConfig = {
     extensions: ['.js', '.jsx'],
   },
   output: {
-    path: resolve(__dirname, '../dist'),
+    path: resolve(__dirname, '../dist/dll'),
     filename: '[name]_dll.js',
     library: {
       name: '[name]',
@@ -53,7 +53,7 @@ const webpackConfig = {
     new CleanWebpackPlugin(),
     new DllPlugin({
       context: process.cwd(),
-      path: resolve(__dirname, '../dist', '[name]-manifest.json'),
+      path: resolve(__dirname, '../dist/dll', '[name]-manifest.json'),
       name: '[name]',
       format: true,
     }),
@@ -69,6 +69,6 @@ compiler.run(error => {
     console.log('------------ dll编译完成 ------------');
   } else {
     console.log('------------ dll编译失败 ------------');
-    process.exit(0);
+    process.exit();
   }
 });

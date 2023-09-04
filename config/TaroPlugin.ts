@@ -32,7 +32,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
               context: process.cwd(),
               manifest: require(resolve(
                 process.cwd(),
-                blended ? '../../dist' : './dist',
+                blended ? '../../dist/dll' : './dist/dll',
                 './remote-manifest.json'
               )),
               sourceType: 'global',
@@ -103,7 +103,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
     if (blended) return;
 
     // 复制 dll文件到对应的小程序目录中
-    const dllFilePath = resolve(process.cwd(), './dist/remote_dll.js');
+    const dllFilePath = resolve(process.cwd(), './dist/dll/remote_dll.js');
 
     const outputPath = resolve(process.cwd(), './dist/weapp/remote_dll.js');
 

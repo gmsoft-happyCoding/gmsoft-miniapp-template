@@ -64,6 +64,12 @@ const pullSvn = (svnPath: string, subMiniappDir: string, subpackageName: string)
 const buildSubpackage = (subMiniappDir: string, subpackageName: string, isBuild?: boolean) => {
   const nodeCwd = resolve(process.cwd(), `${subMiniappDir}/${subpackageName}`);
 
+  // 进行依赖映射
+  execSync('pnpm install', {
+    stdio: 'inherit',
+    cwd: nodeCwd,
+  });
+
   // 复制分包存放 编译后结果目录
   const moveDir = resolve(process.cwd(), './src', `${subMiniappDir}/${subpackageName}`);
 
@@ -83,15 +89,6 @@ const buildSubpackage = (subMiniappDir: string, subpackageName: string, isBuild?
     // 排除主进程 对于 MINI_APP_SUBPACKAGE_CONFIG 环境变量 的注入
     env: omit(process.env, ['MINI_APP_SUBPACKAGE_CONFIG']),
   });
-};
-
-const subDependentLink = async () => {
-  // 进行依赖映射
-  execSync('pnpm install', {
-    stdio: 'inherit',
-  });
-
-  return Promise.resolve();
 };
 
 const build = async (isBuild?: boolean, pull?: boolean) => {
@@ -143,10 +140,6 @@ const build = async (isBuild?: boolean, pull?: boolean) => {
     return subpackage.reduce(async (pre, cur, index) => {
       try {
         await pre;
-
-        if (index === 0) {
-          await subDependentLink();
-        }
 
         return new Promise<void>((promistResolve, reject) => {
           const subpackageName = get(cur, 'name');

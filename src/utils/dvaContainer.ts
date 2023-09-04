@@ -52,7 +52,15 @@ export interface StateContainer {
 // model namespace cache
 const cached = {};
 
-let stateContainer: any = wx['_stateContainer_'];
+let stateContainer: any;
+
+if (process.env.TARO_ENV === 'weapp') {
+  stateContainer = wx['_stateContainer_'];
+}
+
+if (process.env.TARO_ENV === 'dd') {
+  stateContainer = dd['_stateContainer_'];
+}
 
 // eslint-disable-next-line no-console
 const defaultOnError = (err: any) => console.error(err);
@@ -65,7 +73,15 @@ interface ArgsI {
 function createStateContainer({ NODE_ENV = 'production', onError = defaultOnError }: ArgsI = {}) {
   if (stateContainer) return stateContainer as StateContainer;
 
-  wx['_stateContainer_'] = stateContainer = create({ onError });
+  stateContainer = create({ onError });
+
+  if (process.env.TARO_ENV === 'weapp') {
+    wx['_stateContainer_'] = stateContainer;
+  }
+
+  if (process.env.TARO_ENV === 'dd') {
+    dd['_stateContainer_'] = stateContainer;
+  }
 
   stateContainer.use(createLoading());
 
