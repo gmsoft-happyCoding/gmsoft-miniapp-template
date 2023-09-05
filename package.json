@@ -32,7 +32,7 @@
     "@tarojs/helper": "3.6.5",
     "@tarojs/plugin-framework-react": "3.6.5",
     "@tarojs/plugin-platform-alipay": "3.6.5",
-    "@tarojs/plugin-platform-alipay-dd": "^0.2.0",
+    "@tarojs/plugin-platform-alipay-dd": "^0.3.0",
     "@tarojs/plugin-platform-weapp": "3.6.5",
     "@tarojs/react": "3.6.5",
     "@tarojs/runtime": "3.6.5",

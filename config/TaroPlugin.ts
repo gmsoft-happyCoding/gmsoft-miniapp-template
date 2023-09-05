@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { get } from 'lodash';
 import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
-import { outputRoot } from './utils';
+import { outputRoot, platformCallbackglobalObject } from './utils';
 import { BuildType } from './enums/BuildType.enum';
 
 export default (ctx: IPluginContext, pluginOpts) => {
@@ -42,6 +42,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
       },
       output: {
         chunkLoadingGlobal: process.env.MAIN_APP_SUBMINIAPP_BUILD_PACKAGENAME || 'webpackJsonp',
+        globalObject: platformCallbackglobalObject(appType),
       },
       optimization: {
         providedExports: true,
@@ -92,9 +93,21 @@ export default (ctx: IPluginContext, pluginOpts) => {
     const outputPath = resolve(__dirname, '../', `${outputRoot(appType)}`);
 
     if (rootPath) {
-      removeSync(rootPath);
+      try {
+        removeSync(rootPath);
+      } catch (error) {
+        console.log(`删除分包目录失败${rootPath}`);
+        console.log(JSON.stringify(error));
+        process.exit();
+      }
 
-      copySync(outputPath, rootPath);
+      try {
+        copySync(outputPath, rootPath);
+      } catch (error) {
+        console.log('拷贝失败！');
+        console.log(JSON.stringify(error));
+        process.exit();
+      }
 
       console.log('拷贝结束！');
     }
@@ -108,7 +121,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
     // 复制 dll文件到对应的小程序目录中
     const dllFilePath = resolve(process.cwd(), './dist/dll/remote_dll.js');
 
-    const outputPath = resolve(process.cwd(), './dist/weapp/remote_dll.js');
+    const outputPath = resolve(process.cwd(), `${outputRoot(appType)}/remote_dll.js`);
 
     if (existsSync(dllFilePath)) {
       copySync(dllFilePath, outputPath, { overwrite: true });

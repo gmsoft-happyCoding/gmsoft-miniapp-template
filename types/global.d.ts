@@ -1,4 +1,5 @@
 /// <reference types="@tarojs/taro" />
+/// <reference types="@tarojs/plugin-platform-alipay-dd/types/shims-dd.d.ts" />
 
 declare module '*.png';
 declare module '*.gif';

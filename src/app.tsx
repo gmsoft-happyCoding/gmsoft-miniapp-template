@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
 import { useLaunch } from '@tarojs/taro';
-import { dvaContainer } from '@/utils';
+import { stateContainer } from '@/utils';
 import { model } from '@/models/UserInfo';
 import './app.scss';
 
-dvaContainer.injectModel(model);
+stateContainer.injectModel(model);
 
 function App({ children }: PropsWithChildren<any>) {
   useLaunch(() => {
@@ -13,7 +13,7 @@ function App({ children }: PropsWithChildren<any>) {
   });
 
   // children 是将要会渲染的页面
-  return <Provider store={dvaContainer._store}>{children}</Provider>;
+  return <Provider store={stateContainer._store}>{children}</Provider>;
 }
 
 export default App;

@@ -1,3 +1,3 @@
 import stateContainer from './stateContainer';
 
-export { stateContainer };
+export default stateContainer;
