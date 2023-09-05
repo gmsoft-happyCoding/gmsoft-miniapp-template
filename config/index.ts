@@ -44,7 +44,6 @@ const config = {
   },
   mini: {
     hot: true,
-    enableSourceMap: false,
     postcss: {
       pxtransform: {
         enable: true,
