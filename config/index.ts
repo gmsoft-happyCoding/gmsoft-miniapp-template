@@ -34,13 +34,7 @@ const config = {
     enable: false, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
   },
   alias: {
-    '@/components': resolve(__dirname, '../', './src/components'),
-    '@/utils': resolve(__dirname, '../', './src/utils'),
-    '@/models': resolve(__dirname, '../', './src/models'),
-    '@/api': resolve(__dirname, '../', './src/api'),
-    '@/enums': resolve(__dirname, '../', './src/enums'),
-    '@/constant': resolve(__dirname, '../', './src/constant'),
-    '@/hooks': resolve(__dirname, '../', './src/hooks'),
+    '@': resolve(__dirname, '..', 'src'),
   },
   mini: {
     hot: true,

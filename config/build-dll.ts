@@ -9,11 +9,14 @@ const PRO_DLL_LIBRARY = [
   'react-dom',
   'redux',
   'react-redux',
+  'redux-saga',
   'dva-core',
   'dva-loading',
   'dva-model-creator',
   '@linaria/react',
   '@linaria/core',
+  '@gmsoft-mini-app/react-hanger',
+  '@gmsoft-mini-app/state-container',
 ];
 
 const DEV_DLL_LIBRARY = PRO_DLL_LIBRARY.concat('react-reconciler');
@@ -27,6 +30,7 @@ const webpackConfig = {
   resolve: {
     symlinks: true,
     extensions: ['.js', '.jsx'],
+    mainFields: ['main', 'browser', 'module', 'jsnext:main'],
   },
   output: {
     path: resolve(__dirname, '../dist/dll'),
@@ -41,13 +45,21 @@ const webpackConfig = {
     rules: [
       {
         test: /\.(?:js|mjs|cjs)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [['@babel/preset-env', { useBuiltIns: 'usage' }]],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [['@babel/preset-env']],
+              plugins: [['@babel/plugin-transform-runtime']],
+            },
           },
-        },
+          {
+            loader: '@linaria/webpack-loader',
+            options: {
+              sourceMap: process.env.NODE_ENV !== 'production',
+            },
+          },
+        ],
       },
     ],
   },
