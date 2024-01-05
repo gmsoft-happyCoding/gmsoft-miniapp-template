@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { webpack, DllPlugin } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { AppType } from './enums/AppType.enum';
-import { platformCallbackglobalObject } from './utils';
+import { platformCallbackglobalObject, platformCallbackDistDirectory } from './utils';
 
 const PRO_DLL_LIBRARY = [
   'react',
@@ -33,7 +33,11 @@ const webpackConfig = {
     mainFields: ['main', 'browser', 'module', 'jsnext:main'],
   },
   output: {
-    path: resolve(__dirname, '../dist/dll'),
+    path: resolve(
+      __dirname,
+      '../dist',
+      platformCallbackDistDirectory(process.env.REACT_MINI_APP_TYPE as AppType)
+    ),
     filename: '[name]_dll.js',
     library: {
       name: '[name]',
@@ -67,7 +71,12 @@ const webpackConfig = {
     new CleanWebpackPlugin(),
     new DllPlugin({
       context: process.cwd(),
-      path: resolve(__dirname, '../dist/dll', '[name]-manifest.json'),
+      path: resolve(
+        __dirname,
+        '../dist',
+        platformCallbackDistDirectory(process.env.REACT_MINI_APP_TYPE as AppType),
+        '[name]-manifest.json'
+      ),
       name: '[name]',
       format: true,
     }),

@@ -10,4 +10,18 @@ const platformCallbackglobalObject = (appType?: AppType) => {
   }
 };
 
-export { platformCallbackglobalObject };
+const wxOutputDirectory = './wx-dll';
+
+const ddOutputDirectory = './dd-dll';
+
+const platformCallbackDistDirectory = (appType?: AppType) => {
+  switch (appType) {
+    case AppType.DD:
+      return ddOutputDirectory;
+    case AppType.WEAPP:
+    default:
+      return wxOutputDirectory;
+  }
+};
+
+export { platformCallbackglobalObject, platformCallbackDistDirectory };

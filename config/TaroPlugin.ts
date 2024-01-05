@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { get } from 'lodash';
 import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
-import { outputRoot, platformCallbackglobalObject } from './utils';
+import { outputRoot, platformCallbackglobalObject, platformCallbackDistDirectory } from './utils';
 import { BuildType } from './enums/BuildType.enum';
 
 export default (ctx: IPluginContext, pluginOpts) => {
@@ -32,7 +32,8 @@ export default (ctx: IPluginContext, pluginOpts) => {
               context: process.cwd(),
               manifest: require(resolve(
                 process.cwd(),
-                blended ? '../../dist/dll' : './dist/dll',
+                blended ? '../../dist' : './dist',
+                platformCallbackDistDirectory(appType),
                 './remote-manifest.json'
               )),
               sourceType: 'global',
@@ -121,7 +122,12 @@ export default (ctx: IPluginContext, pluginOpts) => {
     if (blended) return;
 
     // 复制 dll文件到对应的小程序目录中
-    const dllFilePath = resolve(process.cwd(), './dist/dll/remote_dll.js');
+    const dllFilePath = resolve(
+      process.cwd(),
+      './dist',
+      platformCallbackDistDirectory(appType),
+      './remote_dll.js'
+    );
 
     const outputPath = resolve(process.cwd(), `${outputRoot(appType)}/remote_dll.js`);
 
