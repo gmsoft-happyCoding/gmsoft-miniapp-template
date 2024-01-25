@@ -64,6 +64,8 @@ export default (ctx: IPluginContext, pluginOpts) => {
       'react-reconciler/cjs/react-reconciler-constants.production.min.js'
     );
 
+    console.log(webpackChain.toConfig());
+
     entryName = get(Object.keys(get(webpackChain.toConfig(), 'entry', {})), '0');
   });
 

@@ -36,11 +36,5 @@ module.exports = {
     ],
   },
 
-  subPackages: [
-    {
-      root: 'sub/pages',
-      pages: ['Index/Index'],
-    },
-    ...parseJson(process.env.MINI_APP_SUBPACKAGE_CONFIG),
-  ],
+  subPackages: [...parseJson(process.env.MINI_APP_SUBPACKAGE_CONFIG)],
 };
