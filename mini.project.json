@@ -1,0 +1,10 @@
+{
+  "format": 2,
+  "compileType": "mini",
+  "miniprogramRoot": "dist/ddapp/",
+  "projectname": "xcj-mini-app",
+  "compileOptions": {
+    "globalObjectMode": "enable"
+  },
+  "uploadExclude": []
+}

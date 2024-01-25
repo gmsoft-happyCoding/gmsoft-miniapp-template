@@ -17,9 +17,9 @@ const mergeEnv = (config: any) => {
   const envFileName = process.env.REACT_MINI_APP_ENV;
 
   if (envFileName) {
-    const envConfigPath = resolve(process.cwd(), 'project-config', `${envFileName}.ts`);
+    const envConfigPath = resolve(process.cwd(), 'project-config', `${envFileName}.js`);
 
-    const defaultConfigPath = resolve(process.cwd(), 'project-config', 'default.ts');
+    const defaultConfigPath = resolve(process.cwd(), 'project-config', 'default.js');
 
     if (existsSync(envConfigPath)) {
       if (existsSync(defaultConfigPath)) {
@@ -38,11 +38,11 @@ const mergeEnv = (config: any) => {
             : {}),
         });
       } else {
-        console.log(`${resolve(process.cwd(), 'project-config')}下缺少<default.ts>文件`);
+        console.log(`${resolve(process.cwd(), 'project-config')}下缺少<default.js>文件`);
         process.exit();
       }
     } else {
-      console.log(`${resolve(process.cwd(), 'project-config')}下缺少<${envFileName}.ts>文件`);
+      console.log(`${resolve(process.cwd(), 'project-config')}下缺少<${envFileName}.js>文件`);
       process.exit();
     }
   } else {

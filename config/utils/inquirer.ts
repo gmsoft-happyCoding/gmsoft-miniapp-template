@@ -65,7 +65,7 @@ const inquirer = async (build?: boolean) => {
 
   const REACT_MINI_APP_TYPE = type || appType;
 
-  const exists = existsSync(join(process.cwd(), 'project-config', `${REACT_MINI_APP_ENV}.ts`));
+  const exists = existsSync(join(process.cwd(), 'project-config', `${REACT_MINI_APP_ENV}.js`));
 
   if (exists) {
     // 设置 小程序类型
@@ -116,7 +116,7 @@ const inquirer = async (build?: boolean) => {
       buildMainpackage(REACT_MINI_APP_TYPE, buildType, build);
     }
   } else {
-    console.error(`${env}.ts文件不存在，请检查！`);
+    console.error(`${env}.js文件不存在，请检查！`);
 
     process.exit();
   }

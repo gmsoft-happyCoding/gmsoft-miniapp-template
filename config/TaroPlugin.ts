@@ -1,10 +1,12 @@
-import { DllReferencePlugin } from 'webpack';
+import { DllReferencePlugin, sources } from 'webpack';
 import { resolve } from 'path';
 import { get } from 'lodash';
 import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
 import { outputRoot, platformCallbackglobalObject, platformCallbackDistDirectory } from './utils';
 import { BuildType } from './enums/BuildType.enum';
+
+const { ConcatSource } = sources;
 
 export default (ctx: IPluginContext, pluginOpts) => {
   const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
@@ -76,12 +78,13 @@ export default (ctx: IPluginContext, pluginOpts) => {
     const cachedSource = get(assets, `${entryName}.js`);
 
     if (cachedSource) {
-      // 获得 ConcatSource
-      let source = cachedSource.original();
+      const source = new ConcatSource();
 
-      if (source['_children']) {
-        source['_children'].unshift(`require("./remote_dll");\n`);
-      }
+      source.add(`require("./remote_dll");\n`);
+
+      source.add(cachedSource);
+
+      assets[`${entryName}.js`] = source;
     }
   });
 
