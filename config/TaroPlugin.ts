@@ -56,8 +56,6 @@ export default (ctx: IPluginContext, pluginOpts) => {
     webpackChain.resolve.alias.delete('react$');
     webpackChain.resolve.alias.delete('react-reconciler$');
 
-    webpackChain.resolve.mainFields.prepend('main');
-
     // taro-react 依赖包
     webpackChain.resolve.alias.set(
       'react-reconciler/constants',
