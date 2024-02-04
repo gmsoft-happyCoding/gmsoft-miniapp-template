@@ -30,7 +30,7 @@ const webpackConfig = {
   resolve: {
     symlinks: true,
     extensions: ['.js', '.jsx'],
-    //  mainFields: ['browser', 'module', 'jsnext:main', 'main'], // taro 模块解析字段序列
+    mainFields: ['browser', 'module', 'jsnext:main', 'main'], // taro 模块解析字段序列
   },
   output: {
     path: resolve(
