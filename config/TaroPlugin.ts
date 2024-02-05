@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { get } from 'lodash';
 import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
-import { outputRoot, platformCallbackglobalObject, platformCallbackDistDirectory } from './utils';
+import { outputRoot, platformCallbackglobalObject } from './utils';
 import { BuildType } from './enums/BuildType.enum';
 
 const { ConcatSource } = sources;
@@ -12,6 +12,12 @@ export default (ctx: IPluginContext, pluginOpts) => {
   const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
 
   const { appType } = pluginOpts;
+
+  const NODE_ENV = process.env.NODE_ENV || 'production';
+
+  const directory = `${appType}-${NODE_ENV}`;
+
+  const remoteFileName = `remote-${directory}`;
 
   let entryName: string = '';
 
@@ -23,9 +29,7 @@ export default (ctx: IPluginContext, pluginOpts) => {
     const { chain: webpackChain } = args;
 
     webpackChain.merge({
-      ...(process.env.MAIN_APP_BUILD_TYPE === BuildType.SUB_PACKAGE
-        ? { mode: process.env.NODE_ENV || 'production' }
-        : {}),
+      ...(process.env.MAIN_APP_BUILD_TYPE === BuildType.SUB_PACKAGE ? { mode: NODE_ENV } : {}),
       plugin: {
         DllReferencePlugin: {
           plugin: DllReferencePlugin,
@@ -34,9 +38,8 @@ export default (ctx: IPluginContext, pluginOpts) => {
               context: process.cwd(),
               manifest: require(resolve(
                 process.cwd(),
-                blended ? '../../dist' : './dist',
-                platformCallbackDistDirectory(appType),
-                './remote-manifest.json'
+                blended ? '../../node_modules' : './node_modules',
+                `./@gmsoft-mini-app/remote/dist/${directory}/${remoteFileName}.json`
               )),
               sourceType: 'global',
             },
@@ -80,7 +83,8 @@ export default (ctx: IPluginContext, pluginOpts) => {
     if (cachedSource) {
       const source = new ConcatSource();
 
-      source.add(`require("./remote_dll");\n`);
+      // 只有在开发环境 开会有 换行符
+      source.add(`require("./${remoteFileName}");${NODE_ENV === 'development' ? '\n' : ''}`);
 
       source.add(cachedSource);
 
@@ -127,12 +131,10 @@ export default (ctx: IPluginContext, pluginOpts) => {
     // 复制 dll文件到对应的小程序目录中
     const dllFilePath = resolve(
       process.cwd(),
-      './dist',
-      platformCallbackDistDirectory(appType),
-      './remote_dll.js'
+      `./node_modules/@gmsoft-mini-app/remote/dist/${directory}/${remoteFileName}.js`
     );
 
-    const outputPath = resolve(process.cwd(), `${outputRoot(appType)}/remote_dll.js`);
+    const outputPath = resolve(process.cwd(), `${outputRoot(appType)}/${remoteFileName}.js`);
 
     if (existsSync(dllFilePath)) {
       copySync(dllFilePath, outputPath, { overwrite: true });
