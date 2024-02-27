@@ -16,7 +16,12 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: outputRoot(appType as AppType),
-  plugins: buildPlugin(appType as AppType),
+  plugins: [
+    [resolve(process.cwd(), './config', './TaroPlugin.ts')],
+    '@tarojs/plugin-indie',
+    '@tarojs/plugin-platform-alipay-dd',
+  ],
+  // buildPlugin(appType as AppType),
   defineConstants: {},
   copy: {
     patterns: [],

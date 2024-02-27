@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.0.2
     version: 1.0.2(react-redux@8.1.2)(react@18.2.0)(redux@4.2.1)
   '@gmsoft-mini-app/remote':
-    specifier: ^1.0.2
-    version: 1.0.2(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-native@0.73.2)(typescript@4.1.2)
+    specifier: ^1.0.4
+    version: 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-native@0.73.2)(typescript@4.1.2)
   '@gmsoft-mini-app/state-container':
     specifier: ^1.0.1
     version: 1.0.1
@@ -2093,14 +2093,14 @@ packages:
       redux: 4.2.1
     dev: false
 
-  /@gmsoft-mini-app/remote@1.0.2(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-native@0.73.2)(typescript@4.1.2):
-    resolution: {integrity: sha512-nXbUpxD4Vpf5OwS9pQEql8vUSc6Pst8fFA7qUdPfzz7fdTfs9l/Lk6Zfj83PhUTgZKfCq+vawIEEHzHUYtaEPg==}
+  /@gmsoft-mini-app/remote@1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-native@0.73.2)(typescript@4.1.2):
+    resolution: {integrity: sha512-B5YWlKrNcBhqnoU6RXEIIkZTjQpeJZwOJtLU4nLaqkI5wn5DeGIUazdhfifRHKQNDYjTdnJwT07GitDamonlqg==}
     dependencies:
       '@gmsoft-mini-app/react-hanger': 1.0.2(react-redux@8.1.3)(react@18.2.0)(redux@4.2.1)
       '@gmsoft-mini-app/state-container': 1.0.1
       '@linaria/babel-preset': 5.0.4(typescript@4.1.2)
-      '@linaria/core': 6.0.0
-      '@linaria/react': 6.0.0(react@18.2.0)
+      '@linaria/core': 6.1.0
+      '@linaria/react': 6.1.0(react@18.2.0)
       dayjs: 1.11.10
       dva-core: 2.0.4(redux@4.2.1)
       dva-loading: 3.0.24(dva-core@2.0.4)
@@ -2348,11 +2348,11 @@ packages:
       - supports-color
     dev: false
 
-  /@linaria/core@6.0.0:
-    resolution: {integrity: sha512-baRaaL1RGd6+DSB4HZhTfJWa214DaQXn0M3CLaPAwouoM4sU2ZF64X6aQ/L5fCbdNCN7SNNf5DtcWAxWC2bjLA==}
+  /@linaria/core@6.1.0:
+    resolution: {integrity: sha512-absw9pHz1FBGZ9yo0/Zqoj6xubAI+liADMzNTCt8cwwFawAUspciTBZIA28yjQ7aqyRakO0Yq4zAKQeUhWKPTQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@wyw-in-js/processor-utils': 0.2.3
+      '@wyw-in-js/processor-utils': 0.4.1
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -2394,16 +2394,16 @@ packages:
       - supports-color
     dev: false
 
-  /@linaria/react@6.0.0(react@18.2.0):
-    resolution: {integrity: sha512-rzvaNIT9d5dxIiTew2ZYiYkuiuCCOiK6SLv+rmdewAFN6e5Ywd17UlwOEiIhRoJYmZktiMwPzb03m9+dLjGPhg==}
+  /@linaria/react@6.1.0(react@18.2.0):
+    resolution: {integrity: sha512-xNRTAygvxAgLJxHLmudJyiNZS1yGXEoKqHFAeEdm2vz0WzlTflnvmN16X311ZbxHRToa3lKHxfxwDnPB/oni+Q==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       react: '>=16'
     dependencies:
       '@emotion/is-prop-valid': 1.2.1
-      '@linaria/core': 6.0.0
-      '@wyw-in-js/processor-utils': 0.2.3
-      '@wyw-in-js/shared': 0.2.3
+      '@linaria/core': 6.1.0
+      '@wyw-in-js/processor-utils': 0.4.1
+      '@wyw-in-js/shared': 0.4.1
       minimatch: 9.0.3
       react: 18.2.0
       react-html-attributes: 1.4.6
@@ -4620,18 +4620,18 @@ packages:
       '@webassemblyjs/ast': 1.11.6
       '@xtuc/long': 4.2.2
 
-  /@wyw-in-js/processor-utils@0.2.3:
-    resolution: {integrity: sha512-p/j0B94hHUClLNKdXzqM5PedIs+OVSlFOH7aAk5g/8Wm9Rt/cOBp95D4sdazr1IekuqA0OqRmLPyb9Z97gJzUw==}
+  /@wyw-in-js/processor-utils@0.4.1:
+    resolution: {integrity: sha512-0MVgPC3Svplm2WB4G4eSLLfx8n1EaIpClMXqNcTmfyrFcpLjYYcSXDP7aVgQVvy5wQCqqq+EmPbnU6yXq8X19w==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@babel/generator': 7.23.6
-      '@wyw-in-js/shared': 0.2.3
+      '@wyw-in-js/shared': 0.4.1
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@wyw-in-js/shared@0.2.3:
-    resolution: {integrity: sha512-zOzogN+scf1v/h6TMxtICtHcvp3x1lp9ZrKAMTIVvvKefxx6Z2Tf5DTRDJDcpC+ibojcv3lb+A2QO/Tl1mS/SQ==}
+  /@wyw-in-js/shared@0.4.1:
+    resolution: {integrity: sha512-luKAAP6augn+j7EE9bcVP1chs5RdtmJx1PbRIqT8j12oP2YV32fvhHFX/99XxPujYLxFIexZrhJkNKHnL5uyKA==}
     engines: {node: '>=16.0.0'}
     dependencies:
       debug: 4.3.4

@@ -5,38 +5,17 @@ import { AppType } from '../enums/AppType.enum';
 const buildPlugin = (appType: AppType = AppType.WEAPP) => {
   if (appType === AppType.DD) {
     return [
-      [
-        resolve(process.cwd(), './config', './TaroPlugin.ts'),
-        {
-          appType,
-        },
-      ],
+      [resolve(process.cwd(), './config', './TaroPlugin.ts')],
       '@tarojs/plugin-indie',
       '@tarojs/plugin-platform-alipay-dd',
     ];
   }
 
   if (appType === AppType.WEAPP) {
-    return [
-      [
-        resolve(process.cwd(), './config', './TaroPlugin.ts'),
-        {
-          appType,
-        },
-      ],
-      '@tarojs/plugin-indie',
-    ];
+    return [[resolve(process.cwd(), './config', './TaroPlugin.ts')], '@tarojs/plugin-indie'];
   }
 
-  return [
-    [
-      resolve(process.cwd(), './config', './TaroPlugin.ts'),
-      {
-        appType,
-      },
-    ],
-    '@tarojs/plugin-indie',
-  ];
+  return [[resolve(process.cwd(), './config', './TaroPlugin.ts')], '@tarojs/plugin-indie'];
 };
 
 export { buildPlugin };

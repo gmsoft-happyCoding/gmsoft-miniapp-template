@@ -5,19 +5,26 @@ import { existsSync, removeSync, copySync } from 'fs-extra';
 import { IPluginContext } from '@tarojs/service';
 import { outputRoot, platformCallbackglobalObject } from './utils';
 import { BuildType } from './enums/BuildType.enum';
+import { AppType } from './enums/AppType.enum';
 
 const { ConcatSource } = sources;
 
 export default (ctx: IPluginContext, pluginOpts) => {
   const blended = ctx.runOpts.blended || ctx.runOpts.options.blended;
 
-  const { appType } = pluginOpts;
+  // 获取当前要的平台
+  const appType = get(ctx, 'runOpts.options.platform', AppType.WEAPP);
+
+  // 获取 taro 编译产出目录
+  const buidDirectory = get(ctx, 'initialConfig.outputRoot', './dist');
 
   const NODE_ENV = process.env.NODE_ENV || 'production';
 
   const directory = `${appType}-${NODE_ENV}`;
 
   const remoteFileName = `remote-${directory}`;
+
+  const outputPath = resolve(process.cwd(), `${buidDirectory}`);
 
   let entryName: string = '';
 
@@ -65,6 +72,9 @@ export default (ctx: IPluginContext, pluginOpts) => {
       'react-reconciler/cjs/react-reconciler-constants.production.min.js'
     );
 
+    // 根据平台生成 产出文件夹
+    //  webpackChain.output.path(outputPath);
+
     console.log(webpackChain.toConfig());
 
     entryName = get(Object.keys(get(webpackChain.toConfig(), 'entry', {})), '0');
@@ -100,8 +110,6 @@ export default (ctx: IPluginContext, pluginOpts) => {
 
     const rootPath = process.env.MAIN_APP_SUBMINIAPP_DIR;
 
-    const outputPath = resolve(__dirname, '../', `${outputRoot(appType)}`);
-
     if (rootPath) {
       try {
         removeSync(rootPath);
@@ -134,10 +142,10 @@ export default (ctx: IPluginContext, pluginOpts) => {
       `./node_modules/@gmsoft-mini-app/remote/dist/${directory}/${remoteFileName}.js`
     );
 
-    const outputPath = resolve(process.cwd(), `${outputRoot(appType)}/${remoteFileName}.js`);
+    const copyOutputPath = resolve(outputPath, `./${remoteFileName}.js`);
 
     if (existsSync(dllFilePath)) {
-      copySync(dllFilePath, outputPath, { overwrite: true });
+      copySync(dllFilePath, copyOutputPath, { overwrite: true });
     }
   });
 };
