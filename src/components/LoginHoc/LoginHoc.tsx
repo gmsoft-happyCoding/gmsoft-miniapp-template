@@ -3,7 +3,6 @@ import React from 'react';
 import { useLoad } from '@tarojs/taro';
 import { AtActivityIndicator } from 'taro-ui';
 import { useGetUserInfo } from '@/hooks';
-// import { useGetUserInfo, useActions } from '@/hooks';
 import { useActions } from '@gmsoft-mini-app/react-hanger';
 import { userInfoActions } from '@/models/UserInfo';
 
@@ -13,12 +12,6 @@ const LoginHoc =
     const { getUserInfo } = useActions(userInfoActions);
 
     const { userInfo, loading } = useGetUserInfo();
-
-    console.log(loading);
-
-    console.log(userInfo);
-
-    console.log(getUserInfo);
 
     useLoad(() => {
       // 第一次进入小程序 才会 获取用户信息

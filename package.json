@@ -28,8 +28,8 @@
     "@gmsoft-mini-app/react-hanger": "^1.0.4",
     "@gmsoft-mini-app/remote": "^1.0.4",
     "@gmsoft-mini-app/state-container": "^1.0.1",
-    "@linaria/core": "6.0.0",
-    "@linaria/react": "6.0.0",
+    "@linaria/core": "5.0.2",
+    "@linaria/react": "5.0.3",
     "@tarojs/components": "^3.6.23",
     "@tarojs/helper": "^3.6.23",
     "@tarojs/plugin-framework-react": "^3.6.23",
@@ -52,7 +52,7 @@
     "redux": "4.2.1",
     "redux-saga": "0.16.2",
     "regenerator-runtime": "0.11.1",
-    "taro-ui": "^3.2.2"
+    "taro-ui": "3.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
@@ -62,9 +62,9 @@
     "@babel/runtime": "^7.23.9",
     "@babel/types": "^7.22.10",
     "@gmsoft-mini-app/taro-build-plugin": "^1.0.0",
-    "@linaria/babel-preset": "^4.5.4",
-    "@linaria/shaker": "^4.5.3",
-    "@linaria/webpack-loader": "^4.5.4",
+    "@linaria/babel-preset": "5.0.4",
+    "@linaria/shaker": "5.0.3",
+    "@linaria/webpack-loader": "5.0.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "@tarojs/cli": "^3.6.23",
     "@tarojs/plugin-indie": "^0.0.8",
@@ -97,5 +97,10 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.1.0",
     "webpack": "^5.88.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "react-native": "0.73.6"
+    }
   }
 }
