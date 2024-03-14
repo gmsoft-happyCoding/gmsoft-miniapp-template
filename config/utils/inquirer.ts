@@ -85,18 +85,6 @@ const inquirer = async (build?: boolean) => {
       process.env.MAIN_APP_BASE_PATH = basePath;
     }
 
-    // if (buildType === BuildType.MAIN_PACKAGE) {
-    //   // 编译 公共dll文件
-    //   execSync('ts-node --esm ./config/build-dll.ts', {
-    //     stdio: 'inherit',
-    //     cwd: process.cwd(),
-    //     env: {
-    //       NODE_ENV: build ? 'production' : 'development',
-    //       REACT_MINI_APP_TYPE,
-    //     },
-    //   });
-    // }
-
     // 如果是 全量打包
     if (all) {
       buildSubpackage(build, pull).then(() => {

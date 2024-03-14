@@ -72,11 +72,6 @@ export default (ctx: IPluginContext, pluginOpts) => {
       'react-reconciler/cjs/react-reconciler-constants.production.min.js'
     );
 
-    // 根据平台生成 产出文件夹
-    //  webpackChain.output.path(outputPath);
-
-    console.log(webpackChain.toConfig());
-
     entryName = get(Object.keys(get(webpackChain.toConfig(), 'entry', {})), '0');
   });
 
