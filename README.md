@@ -89,35 +89,59 @@ gmsoft-miniapp-template
 
 
 
-Taro开发依赖项
+## Taro开发依赖项
 'regenerator-runtime': 'F:\\gmsoft-miniapp-template\\node_modules\\.pnpm\\regenerator-runtime@0.11.1\\node_modules\\regenerator-runtime\\runtime-module.js',
+
 '@tarojs/runtime': 'F:\\gmsoft-miniapp-template\\node_modules\\.pnpm\\@tarojs+runtime@3.6.5\\node_modules\\@tarojs\\runtime\\dist\\runtime.esm.js',
+
 '@tarojs/shared': 'F:\\gmsoft-miniapp-template\\node_modules\\.pnpm\\@tarojs+shared@3.6.5\\node_modules\\@tarojs\\shared\\dist\\shared.esm.js',
+
 '@/components': 'F:\\gmsoft-miniapp-template\\src\\components',
+
 '@/utils': 'F:\\gmsoft-miniapp-template\\src\\utils',
+
 '@/models': 'F:\\gmsoft-miniapp-template\\src\\models',
+
 '@/api': 'F:\\gmsoft-miniapp-template\\src\\api',
+
 '@/enums': 'F:\\gmsoft-miniapp-template\\src\\enums',
+
 '@/constant': 'F:\\gmsoft-miniapp-template\\src\\constant',
+
 '@/hooks': 'F:\\gmsoft-miniapp-template\\src\\hooks',
+
 '@tarojs/components$': '@tarojs/plugin-platform-weapp/dist/components-react',
+
 'react-dom$': '@tarojs/react',
+
 'react-reconciler$': 'react-reconciler/cjs/react-reconciler.production.min.js',
+
 'react$': 'react/cjs/react.production.min.js',
+
 'react/jsx-runtime$': 'react/cjs/react-jsx-runtime.production.min.js'
 
 
-Taro 生产环境依赖项
+## Taro 生产环境依赖项
 'regenerator-runtime': 'F:\\gmsoft-miniapp-template\\node_modules\\.pnpm\\regenerator-runtime@0.11.1\\node_modules\\regenerator-runtime\\runtime-module.js',
+
 '@tarojs/runtime': 'F:\\gmsoft-miniapp-template\\node_modules\\.pnpm\\@tarojs+runtime@3.6.5\\node_modules\\@tarojs\\runtime\\dist\\runtime.esm.js',
+
 '@tarojs/shared': 'F:\\gmsoft-miniapp-template\\node_modules\\.pnpm\\@tarojs+shared@3.6.5\\node_modules\\@tarojs\\shared\\dist\\shared.esm.js',
+
 '@/components': 'F:\\gmsoft-miniapp-template\\src\\components',
+
 '@/utils': 'F:\\gmsoft-miniapp-template\\src\\utils',
+
 '@/models': 'F:\\gmsoft-miniapp-template\\src\\models',
+
 '@/api': 'F:\\gmsoft-miniapp-template\\src\\api',
+
 '@/enums': 'F:\\gmsoft-miniapp-template\\src\\enums',
+
 '@/constant': 'F:\\gmsoft-miniapp-template\\src\\constant',
+
 '@/hooks': 'F:\\gmsoft-miniapp-template\\src\\hooks',
+
 '@tarojs/components$': '@tarojs/plugin-platform-weapp/dist/components-react',
 
 
