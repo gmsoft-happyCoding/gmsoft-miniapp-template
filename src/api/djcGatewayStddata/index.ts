@@ -3,7 +3,7 @@ import { convertRESTAPI } from '../util';
 import type { Opts,WithPathOpts } from "../type";
 
 /** 获取指定区域 */
-function djc_gateway_stddata_districts_key_get(opts?: WithPathOpts) {
+function stddata_districts_key_get(opts?: WithPathOpts) {
   return instance({
     method: 'GET',
     url: convertRESTAPI('/stddata/districts/{key}', opts),
@@ -12,7 +12,7 @@ function djc_gateway_stddata_districts_key_get(opts?: WithPathOpts) {
 }
 
 /** 检查日期类型 */
-function djc_gateway_stddata_workdays_checking_get(opts?: Opts) {
+function stddata_workdays_checking_get(opts?: Opts) {
   return instance({
     method: 'GET',
     url:  '/stddata/workdays/checking',
@@ -21,7 +21,7 @@ function djc_gateway_stddata_workdays_checking_get(opts?: Opts) {
 }
 
 /** 日期查询 */
-function djc_gateway_stddata_workdays_day_get(opts?: Opts) {
+function stddata_workdays_day_get(opts?: Opts) {
   return instance({
     method: 'GET',
     url:  '/stddata/workdays/day',
@@ -30,7 +30,7 @@ function djc_gateway_stddata_workdays_day_get(opts?: Opts) {
 }
 
 /** 天数查询 */
-function djc_gateway_stddata_workdays_num_get(opts?: Opts) {
+function stddata_workdays_num_get(opts?: Opts) {
   return instance({
     method: 'GET',
     url:  '/stddata/workdays/num',
@@ -39,7 +39,7 @@ function djc_gateway_stddata_workdays_num_get(opts?: Opts) {
 }
 
 /** 查询区域(树形) */
-function djc_gateway_stddata_districts_get(opts?: Opts) {
+function stddata_districts_get(opts?: Opts) {
   return instance({
     method: 'GET',
     url:  '/stddata/districts',
@@ -48,7 +48,7 @@ function djc_gateway_stddata_districts_get(opts?: Opts) {
 }
 
 /** 删除区域缓存 */
-function djc_gateway_stddata_districts_cache_delete(opts?: Opts) {
+function stddata_districts_cache_delete(opts?: Opts) {
   return instance({
     method: 'DELETE',
     url:  '/stddata/districts/cache',
@@ -57,7 +57,7 @@ function djc_gateway_stddata_districts_cache_delete(opts?: Opts) {
 }
 
 /** 查询区域直接下级 */
-function djc_gateway_stddata_districts_id_children_get(opts?: WithPathOpts) {
+function stddata_districts_id_children_get(opts?: WithPathOpts) {
   return instance({
     method: 'GET',
     url: convertRESTAPI('/stddata/districts/{id}/children', opts),
@@ -66,7 +66,7 @@ function djc_gateway_stddata_districts_id_children_get(opts?: WithPathOpts) {
 }
 
 /** 查询区域直接下级 */
-function djc_gateway_stddata_api_v1_0_location_districts_id_children_get(opts?: WithPathOpts) {
+function stddata_api_v1_0_location_districts_id_children_get(opts?: WithPathOpts) {
   return instance({
     method: 'GET',
     url: convertRESTAPI('/stddata/api/v1.0/location/districts/{id}/children', opts),
@@ -75,7 +75,7 @@ function djc_gateway_stddata_api_v1_0_location_districts_id_children_get(opts?: 
 }
 
 /** 获取指定区域 */
-function djc_gateway_stddata_api_v1_0_location_districts_key_get(opts?: WithPathOpts) {
+function stddata_api_v1_0_location_districts_key_get(opts?: WithPathOpts) {
   return instance({
     method: 'GET',
     url: convertRESTAPI('/stddata/api/v1.0/location/districts/{key}', opts),
@@ -84,7 +84,7 @@ function djc_gateway_stddata_api_v1_0_location_districts_key_get(opts?: WithPath
 }
 
 /** 查询区域(树形) */
-function djc_gateway_stddata_api_v1_0_location_districts_get(opts?: Opts) {
+function stddata_api_v1_0_location_districts_get(opts?: Opts) {
   return instance({
     method: 'GET',
     url:  '/stddata/api/v1.0/location/districts',
@@ -93,14 +93,14 @@ function djc_gateway_stddata_api_v1_0_location_districts_get(opts?: Opts) {
 }
 
 export {
-  djc_gateway_stddata_districts_key_get,
-  djc_gateway_stddata_workdays_checking_get,
-  djc_gateway_stddata_workdays_day_get,
-  djc_gateway_stddata_workdays_num_get,
-  djc_gateway_stddata_districts_get,
-  djc_gateway_stddata_districts_cache_delete,
-  djc_gateway_stddata_districts_id_children_get,
-  djc_gateway_stddata_api_v1_0_location_districts_id_children_get,
-  djc_gateway_stddata_api_v1_0_location_districts_key_get,
-  djc_gateway_stddata_api_v1_0_location_districts_get
+  stddata_districts_key_get,
+  stddata_workdays_checking_get,
+  stddata_workdays_day_get,
+  stddata_workdays_num_get,
+  stddata_districts_get,
+  stddata_districts_cache_delete,
+  stddata_districts_id_children_get,
+  stddata_api_v1_0_location_districts_id_children_get,
+  stddata_api_v1_0_location_districts_key_get,
+  stddata_api_v1_0_location_districts_get
 };

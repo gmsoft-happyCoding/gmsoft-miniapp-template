@@ -45,6 +45,7 @@
     "dva-loading": "^3.0.24",
     "dva-model-creator": "^0.4.3",
     "lodash": "^4.17.21",
+    "qs": "^6.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-reconciler": "0.27.0",
@@ -52,7 +53,7 @@
     "redux": "4.2.1",
     "redux-saga": "0.16.2",
     "regenerator-runtime": "0.11.1",
-    "taro-ui": "3.2.2"
+    "taro-ui": "3.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",

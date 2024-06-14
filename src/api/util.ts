@@ -1,4 +1,5 @@
 import Taro from "@tarojs/taro";
+import qs from "qs";
 import { omit } from "lodash";
 import type { Conf, Opts, WithPathOpts } from "./type";
 
@@ -8,11 +9,20 @@ const defaultParams = {
   },
 };
 
+const defaultParamsSerializer = (params) =>
+  qs.stringify(params, {
+    arrayFormat: "repeat",
+    allowDots: true,
+    addQueryPrefix: true,
+  });
+
 function createAPI(baseURL?: string) {
   return function (conf: Conf) {
     const opts = (conf.opts || {}) as Opts | WithPathOpts;
 
     const paramsSerializer = opts.paramsSerializer;
+
+    const params = opts.params;
 
     const requestData = opts.data;
 
@@ -21,15 +31,15 @@ function createAPI(baseURL?: string) {
         {},
         defaultParams,
         {
-          url: `${baseURL}${conf.url}`,
+          url: `${baseURL}${conf.url}${
+            !!paramsSerializer
+              ? paramsSerializer(params)
+              : defaultParamsSerializer(params)
+          }`,
           method: conf.method,
+          ...(requestData ? { data: JSON.stringify(requestData) } : {}),
         },
-        omit(opts, ["path", "paramsSerializer"]),
-        !!paramsSerializer
-          ? {
-              data: paramsSerializer(requestData) || requestData,
-            }
-          : {}
+        omit(opts, ["path", "paramsSerializer", "params", "data"])
       )
     );
   };
